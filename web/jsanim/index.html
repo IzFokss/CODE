@@ -46,10 +46,10 @@
             pointer-events: none;
             z-index: 1000;
             transform: translate(-50%, -50%);
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.4) 40%, transparent 70%);
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(135, 206, 250, 0.4) 40%, transparent 70%);
             animation: pulse 2s ease-in-out infinite;
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.5),
-                        0 0 40px rgba(255, 255, 255, 0.3);
+                        0 0 40px rgba(135, 206, 250, 0.3);
         }
 
         @keyframes pulse {
@@ -62,16 +62,57 @@
                 opacity: 1;
             }
         }
+
+        .button-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 100;
+        }
+
+        .start-button {
+            padding: 20px 60px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #FFE81F;
+            background: linear-gradient(145deg, rgba(0, 0, 0, 0.8), rgba(20, 20, 20, 0.9));
+            border: 3px solid #FFE81F;
+            border-radius: 10px;
+            cursor: none;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            box-shadow: 0 0 20px rgba(255, 232, 31, 0.5),
+                        inset 0 0 10px rgba(255, 232, 31, 0.1);
+            transition: all 0.3s ease;
+            font-family: Arial, sans-serif;
+        }
+
+        .start-button:hover {
+            background: linear-gradient(145deg, rgba(255, 232, 31, 0.2), rgba(40, 40, 20, 0.9));
+            box-shadow: 0 0 30px rgba(255, 232, 31, 0.8),
+                        inset 0 0 20px rgba(255, 232, 31, 0.2);
+            transform: scale(1.05);
+        }
+
+        .start-button:active {
+            transform: scale(0.95);
+        }
+
+        a {
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
-    <a href="page2.html">
-        <button>Start</button>
-    </a>
-
     <div class="stars"></div>
     <div class="cursor-glow"></div>
     
+    <div class="button-container">
+        <a href="page2.html">
+            <button class="start-button">Start</button>
+        </a>
+    </div>
 
     <script>
         const starsContainer = document.querySelector('.stars');

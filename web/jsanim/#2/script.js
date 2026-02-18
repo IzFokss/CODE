@@ -52,5 +52,10 @@ function updateParticles() {
 
     requestAnimationFrame(updateParticles);
 }
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
 
+window.addEventListener('resize', resizeCanvas);
 updateParticles();

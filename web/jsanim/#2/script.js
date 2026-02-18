@@ -10,21 +10,16 @@ const ctx = canvas.getContext('2d');
 let mouseX = 0;
 let mouseY = 0;
 
-document.addEventListener('mousemove', (event) => {
-    mouseX = event.clientX;
-    mouseY = event.clientY;
-
-    // Spawn a few particles at cursor position on each move
-    for (let i = 0; i < 3; i++) {
-        particlesArray.push({
-            x: mouseX,
-            y: mouseY,
-            radius: Math.random() * 4 + 1,
-            speedX: Math.random() * 2 - 1,   // random horizontal drift
-            speedY: Math.random() * 2 - 0.5, // drift slightly downward
-            life: 1.0                         // opacity, fades out over time
-        });
-    }
+particlesArray.push({
+    x: mouseX,
+    y: mouseY,
+    radius: Math.random() * 4 + 1,
+    speedX: Math.random() * 2 - 1,
+    speedY: Math.random() * 2 - 0.5,
+    life: 1.0,
+    r: Math.floor(Math.random() * 256),  // add these
+    g: Math.floor(Math.random() * 256),
+    b: Math.floor(Math.random() * 256)
 });
 
 function updateParticles() {
@@ -44,7 +39,7 @@ function updateParticles() {
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 200, 50, ${p.life})`; // golden, fades out
+        ctx.fillStyle = `rgba(${p.r}, ${p.g}, ${p.b}, ${p.life})`;
         ctx.fill();
     }
 

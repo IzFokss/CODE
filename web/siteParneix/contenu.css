@@ -93,12 +93,10 @@ button:hover{
 }
 
 .col2 img{
-    width: 70vw;        /* 80% de la largeur de l’écran */
-    max-width: 1500px;  /* limite maximale sur grand écran */
+    width: 1200px;
     border-radius: 10px;
     opacity: 90%;
 }
-
 .col3{
     background:#ffffff33;
     border:2px solid #e7e7e7;

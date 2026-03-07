@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Playpen+Sans+Thai:wght@100..800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Betania+Patmos&family=Titan+One&display=swap');
 
+/* ========== RESET GLOBAL ========== */
 * {
     margin: 0;
     padding: 0;
@@ -12,7 +13,7 @@ body {
     min-height: 100vh;
 }
 
-
+/* ========== HEADER / NAVIGATION ========== */
 header {
     width: 100%;
     height: 75px;
@@ -45,35 +46,18 @@ header {
     transition: .3s;
 }
 
-.nav-links a:hover { color: #1149e4; }
+.nav-links a:hover {
+    color: #1149e4;
+}
 
 .nav-links a.active {
     color: #1149e4;
     font-weight: bold;
 }
 
-
-main {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 20px;
-    padding: 20px;
-    align-items: start;
-}
-
-
-.col1 {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-
-
-
 .icone {
     width: 40px;
-    height: 40px; 
+    height: 40px;
     border-radius: 50%;
     background-color: #fff;
     display: flex;
@@ -81,35 +65,51 @@ main {
     align-items: center;
     font-size: 24px;
     color: #1149e4;
-    
 }
 
-.ligne1,
-.ligne2 {
-    background: #ffffff33;
-    border: 2px solid #e7e7e7;
+/* style pour la page d'accueil */
+.accueil {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 20px;
     padding: 20px;
-    border-radius: 10px;
-    color: #fff;
-    font-size: clamp(14px, 1.5vw, 20px);
-    height: auto;          
-    min-height: 180px;
+    align-items: start;
 }
-
+/*style pour la première collone de la page d'accueil*/
+.col1 {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+/*style pour la deuxième collone de la page d'accueil(celle qui contient l'image)*/
+.col2 {
+    padding: 20px 0;
+    color: #fff;
+}
+/*style pour l'image de la page d'accueil*/
+.col2 img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    opacity: 90%;
+    display: block;
+}
+/* style pour le titre de la page d'accueil */
 .titre {
     font-family: "Titan One", sans-serif;
-    font-size: clamp(34px, 2vw, 52px);
+    font-size: clamp(34px, 2vw, 52px); /* taille du texte qui s'adapte à la taille de l'écran (min: 34px, max: 52px) */
     margin-bottom: 10px;
     color: #fff;
     display: flex;
-
+    margin: 50px 0px 15px 25px;
 }
-.col1 h1{
+
+.col1 h1 {
     font-family: "Titan One", sans-serif;
     font-size: clamp(18px, 2vw, 28px);
-     color: #fff;
-     display: flex;
-    
+    color: #fff;
+    display: flex;
 }
 
 .intro {
@@ -120,7 +120,19 @@ main {
     line-height: 1.6;
 }
 
+.ligne1,
+.ligne2 {
+    background: #ffffff33;
+    border: 2px solid #e7e7e7;
+    padding: 20px;
+    border-radius: 10px;
+    color: #fff;
+    font-size: clamp(14px, 1.5vw, 20px);
+    height: auto;
+    min-height: 180px;
+}
 
+/* ========== FORMULAIRE ========== */
 form {
     display: grid;
     gap: 4px;
@@ -141,6 +153,7 @@ form input {
 form input[type="radio"] {
     width: auto;
 }
+
 .radios {
     display: flex;
     gap: 15px;
@@ -166,41 +179,40 @@ button:hover {
     transform: scale(1.10);
 }
 
-
-.col2 {
-    padding: 20px 0;
-    color: #fff;
-}
-
-.col2 img {
-    width: 100%;          
-    max-width: 100%;
-    height: auto;         
-    border-radius: 10px;
-    opacity: 90%;
-    display: block;
-}
-
-
-.col3 {
-    background: #ffffff33;
-    border: 2px solid #e7e7e7;
+/* style pour la page des règles */
+.regles {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 20px;
     padding: 20px;
-    border-radius: 10px;
-    color: #fff;
-    font-size: 20px;
+    align-items: start;
+}
+.col1 {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.col2 {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.col3 {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
+/* ========== MEDIA QUERIES ========== */
 @media (max-width: 900px) {
     main {
-        grid-template-columns: 1fr;   
+        grid-template-columns: 1fr;
     }
 
     .col2 img {
         border-radius: 8px;
     }
 }
-
 
 @media (max-width: 500px) {
     .navbar {

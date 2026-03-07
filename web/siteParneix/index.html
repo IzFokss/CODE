@@ -8,6 +8,7 @@
     <link rel="icon" href="ressources/balle_icone.png">
     
     
+    
 </head>
 
 <body>
@@ -15,19 +16,21 @@
     <header>
         <nav class="navbar">
             <ul class="nav-links">
-                <li><a href="index.html">Accueil</a></li>
+                <li><a href="index.html" class="active">Accueil</a></li>
                 <li><a href="regles.html">Règles</a></li>
                 <li><a href="tournois.html">Tournois</a></li>
-                <img src="ressources/balle_icone.png" alt="icone tennis" class="icone">
             </ul>
+            <img src="ressources/balle_icone.png" alt="icone tennis" class="icone">
         </nav>
     </header>
+    <h1 class="titre">
+                Bonjour, cher visiteur !
+            </h1>
     <main>
+        
     <div class="col1">
         <div class="ligne1">
-            <h1 class="titre">
-                <u>Bienvenue ...</u>
-            </h1>
+            <h1>Présentation</h1>
             <p class="intro">
                 Antoine, élève de 1°4 au Lycée Turgot.<br>
                 Ma passion est le tennis et ce site sera consacré à ce sport.
@@ -36,7 +39,7 @@
         </div>
 
         <div class="ligne2">
-            <h1>Commentaires</h1>
+            <h1>Formulaire</h1>
             <form>
                 <label for="prenom">Prénom</label>
                 <input type="text" id="prenom" placeholder="Votre prénom">
@@ -46,14 +49,10 @@
 
                 <label>Sexe</label>
                 <div class="radios">
-                    <input type="radio" id="homme" name="sexe" value="Homme"><label for="homme">Homme</label>
-                    <input type="radio" id="femme" name="sexe" value="Femme"><label for="femme">Femme</label>
+                    <input type="radio" id="H" name="sexe" value="Homme"><label for="H">Homme</label>
+                    <input type="radio" id="F" name="sexe" value="Femme"><label for="F">Femme</label>
                 </div>
 
-                <label for="email">Email</label>
-                <input type="email" id="email" placeholder="Votre e-mail">
-                <label for="commentaire">Commentaires</label>
-                <input type="text" placeholder="Améliorations,conseils,..." id="commentaire">
                 <button type="submit">Envoyer</button>
 
 
@@ -75,4 +74,5 @@
     
 
 </body>
+<script src="script.js"></script>
 </html>

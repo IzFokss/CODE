@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Playpen+Sans+Thai:wght@100..800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Betania+Patmos&family=Titan+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
 
 /* ========== RESET GLOBAL ========== */
 * {
@@ -67,7 +68,8 @@ header {
     color: #1149e4;
 }
 
-/* style pour la page d'accueil */
+/* ========== PAGE D'ACCUEIL ========== */
+/* Grille principale pour la page d'accueil avec 2 colonnes : contenu à gauche, image à droite */
 .accueil {
     display: grid;
     grid-template-columns: 1fr 2fr;
@@ -75,18 +77,21 @@ header {
     padding: 20px;
     align-items: start;
 }
-/*style pour la première collone de la page d'accueil*/
-.col1 {
+
+/* Colonne 1 : Présentation et Formulaire */
+.accueil .col1 {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
-/*style pour la deuxième collone de la page d'accueil(celle qui contient l'image)*/
-.col2 {
+
+/* Colonne 2 : Image du terrain de tennis */
+.accueil .col2 {
     padding: 20px 0;
     color: #fff;
 }
-/*style pour l'image de la page d'accueil*/
+
+/* Style pour les images responsives */
 .col2 img {
     width: 100%;
     max-width: 100%;
@@ -95,23 +100,24 @@ header {
     opacity: 90%;
     display: block;
 }
-/* style pour le titre de la page d'accueil */
+/* Titre principal de chaque page (adaptatif en taille) */
 .titre {
     font-family: "Titan One", sans-serif;
-    font-size: clamp(34px, 2vw, 52px); /* taille du texte qui s'adapte à la taille de l'écran (min: 34px, max: 52px) */
+    font-size: clamp(34px, 2vw, 52px);
     margin-bottom: 10px;
     color: #fff;
     display: flex;
     margin: 50px 0px 15px 25px;
 }
 
-.col1 h1 {
+.accueil .col1 h1 {
     font-family: "Titan One", sans-serif;
     font-size: clamp(18px, 2vw, 28px);
     color: #fff;
     display: flex;
 }
 
+/* Texte d'introduction avec police cursive */
 .intro {
     color: #fff;
     margin-top: 12px;
@@ -120,6 +126,7 @@ header {
     line-height: 1.6;
 }
 
+/* Conteneurs pour les sections Présentation et Formulaire de la page d'accueil */
 .ligne1,
 .ligne2 {
     background: #ffffff33;
@@ -133,6 +140,7 @@ header {
 }
 
 /* ========== FORMULAIRE ========== */
+/* Conteneur du formulaire avec disposition en grille */
 form {
     display: grid;
     gap: 4px;
@@ -141,6 +149,7 @@ form {
     font-size: clamp(12px, 1.2vw, 16px);
 }
 
+/* Champs de saisie texte */
 form input {
     height: 30px;
     border-radius: 5px;
@@ -150,10 +159,12 @@ form input {
     width: 100%;
 }
 
+/* Ajustement des boutons radio */
 form input[type="radio"] {
     width: auto;
 }
 
+/* Conteneur pour les options de sexe (radio buttons horizontaux) */
 .radios {
     display: flex;
     gap: 15px;
@@ -161,6 +172,7 @@ form input[type="radio"] {
     margin-left: 100px;
 }
 
+/* Bouton d'envoi du formulaire avec effet hover */
 button {
     border: none;
     background-color: #fff;
@@ -179,14 +191,66 @@ button:hover {
     transform: scale(1.10);
 }
 
-/* style pour la page des règles */
+/* ========== PAGE DES RÈGLES ========== */
+/* Grille 3 colonnes : Colonne 1 (règles gauche) - Colonne 2 (schéma) - Colonne 3 (règles droite) */
 .regles {
     display: grid;
     grid-template-columns: 1fr 2fr 1fr;
     gap: 20px;
     padding: 20px;
-    align-items: start;
+    align-items: stretch;
 }
+
+/* Colonnes de règles avec distribution uniforme */
+.regles .col1,
+.regles .col2,
+.regles .col3 {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: flex-start;
+}
+
+/* Sections individuelles avec hauteur flexible pour alignement parfait */
+.regles .section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+}
+
+/* Titres des sections de règles avec bordure dorée */
+.regles h2 {
+    font-family: "Titan One", sans-serif;
+    font-size: clamp(16px, 1.5vw, 20px);
+    color: #fff;
+    margin-bottom: 8px;
+    border-bottom: 2px solid #ffd700;
+    padding-bottom: 8px;
+    height: fit-content;
+}
+
+/* Paragraphes de règles avec fond transparent et border gauche dorée */
+.regles p {
+    font-family: "Open Sans", sans-serif;
+    font-size: clamp(13px, 1.2vw, 16px);
+    color: #fff;
+    line-height: 1.6;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid #ffd700;
+    transition: all 0.3s ease;
+    flex-grow: 1;
+}
+
+/* Effet hover des paragraphes : intensification du fond et décalage */
+.regles p:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateX(5px);
+}
+
+/* Colonnes génériques (flexibilité pour d'autres pages) */
 .col1 {
     display: flex;
     flex-direction: column;
@@ -197,6 +261,23 @@ button:hover {
     flex-direction: column;
     gap: 20px;
 }
+#infos {
+    font-family: "Open Sans", sans-serif;
+    font-size: clamp(14px, 1.2vw, 16px);
+    color: #fff;
+    text-align: center;
+    margin-top: 20px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    border-left: 4px solid #ffd700;
+    transition: all 0.3s ease;
+    
+}
+span {
+    color: #ffd700;
+    font-weight: bold;
+}
 .col3 {
     display: flex;
     flex-direction: column;
@@ -204,6 +285,7 @@ button:hover {
 }
 
 /* ========== MEDIA QUERIES ========== */
+/* Version tablette : passage en une colonne */
 @media (max-width: 900px) {
     main {
         grid-template-columns: 1fr;
@@ -214,6 +296,7 @@ button:hover {
     }
 }
 
+/* Version mobile : réduction des espacements */
 @media (max-width: 500px) {
     .navbar {
         padding: 0 16px;

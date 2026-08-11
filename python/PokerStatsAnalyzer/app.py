@@ -14,8 +14,33 @@ start_bankroll = None
 
 
 
+def get_stats_csv_path():
+    return os.path.join(os.path.dirname(os.path.abspath(__file__)), "poker_stats.csv")
+
+def reset_stats():
+    fieldnames = ["sbankroll","ebankroll","profit","duration"]
+    with open('poker_stats.csv',"w",newline='') as csvfile:
+        writer = csv.DictWriter(csvfile,fieldnames=fieldnames)
+        writer.writeheader()
+
+
 def calculate_stats():
-    with open('poker_stats.csv', 'r') as csvfile:
+    csv_path = get_stats_csv_path()
+    if not os.path.exists(csv_path):
+        return {
+            "total_profit": 0,
+            "nb_sessions": 0,
+            "avg_profit": 0,
+            "total_duration": 0,
+            "profitable_sessions": 0,
+            "losing_sessions": 0,
+            "winrate": 0,
+            "best_session": 0,
+            "profit_per_hour": 0,
+            "avg_session_duration": 0,
+        }
+
+    with open(csv_path, 'r', newline='') as csvfile:
         reader = csv.DictReader(csvfile)
 
         total_profit = 0
@@ -69,7 +94,8 @@ def calculate_stats():
             "losing_sessions": losing_sessions,
             "winrate": winrate,
             "best_session": best_session,
-            "profit_per_hour": profit_per_hour
+            "profit_per_hour": profit_per_hour,
+            "avg_session_duration" : avg_session_duration
     }
 
 
@@ -98,6 +124,39 @@ def update_stats():
     winrate_label.configure(text=f"Winrate : {stats['winrate']:.1f}%")
     best_session_label.configure(text=f"Best session : ${stats['best_session']:.2f}")
     profit_per_hour_label.configure(text=f"Profit / hour : ${stats['profit_per_hour']:.2f}")
+    avg_session_duration_label.configure(text=f"Average session duration : {format_duration(stats['avg_session_duration'])}")
+    update_last_session_stats()
+
+
+def update_last_session_stats():
+    csv_path = get_stats_csv_path()
+    if not os.path.exists(csv_path) or os.path.getsize(csv_path) == 0:
+        lss_sb.configure(text="Start bankroll : $0.00")
+        lss_eb.configure(text="End bankroll : $0.00")
+        lss_profit.configure(text="Profit : $0.00")
+        lss_duration.configure(text="Duration : 0s")
+        return
+
+    with open(csv_path, 'r', newline='') as csvfile:
+        rows = list(csv.DictReader(csvfile))
+
+    if not rows:
+        lss_sb.configure(text="Start bankroll : $0.00")
+        lss_eb.configure(text="End bankroll : $0.00")
+        lss_profit.configure(text="Profit : $0.00")
+        lss_duration.configure(text="Duration : 0s")
+        return
+
+    last_row = rows[-1]
+    start_bankroll_value = float(last_row['sbankroll'])
+    end_bankroll_value = float(last_row['ebankroll'])
+    profit_value = float(last_row['profit'])
+    duration_value = float(last_row['duration'])
+
+    lss_sb.configure(text=f"Start bankroll : ${start_bankroll_value:.2f}")
+    lss_eb.configure(text=f"End bankroll : ${end_bankroll_value:.2f}")
+    lss_profit.configure(text=f"Profit : ${profit_value:+.2f}")
+    lss_duration.configure(text=f"Duration : {format_duration(duration_value)}")
 
 
 def save_in_csv(sbankroll,ebankroll,profit,duration):
@@ -109,12 +168,32 @@ def save_in_csv(sbankroll,ebankroll,profit,duration):
     }
 
     ]
-    with open('poker_stats.csv', "a", newline='') as csvfile:
+    csv_path = get_stats_csv_path()
+    with open(csv_path, "a", newline='') as csvfile:
         fieldnames = ["sbankroll","ebankroll","profit","duration"]
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-        if os.path.getsize("poker_stats.csv") == 0:
+        if os.path.getsize(csv_path) == 0:
             writer.writeheader()
         writer.writerows(data)
+
+
+def set_session_status(state, elapsed=None):
+    if state == "running":
+        if elapsed is None:
+            elapsed = time.time() - start_time
+        hrs = int(elapsed // 3600)
+        mins = int((elapsed % 3600) // 60)
+        secs = elapsed % 60
+        chrono_label.configure(text=f"Status: Running | {hrs:02d}:{mins:02d}:{secs:05.2f}")
+    elif state == "stopped":
+        if elapsed is None:
+            elapsed = 0
+        hrs = int(elapsed // 3600)
+        mins = int((elapsed % 3600) // 60)
+        secs = elapsed % 60
+        chrono_label.configure(text=f"Status: Stopped | {hrs:02d}:{mins:02d}:{secs:05.2f}")
+    else:
+        chrono_label.configure(text="Status: Idle | No active session")
 
 
 def update_chrono():
@@ -123,10 +202,7 @@ def update_chrono():
     if not tracker_on or start_time is None:
         return
     elapsed = time.time() - start_time
-    hrs = int(elapsed // 3600)
-    mins = int((elapsed % 3600) // 60)
-    secs = elapsed % 60
-    chrono_label.configure(text=f"Session active  : {hrs:02d}:{mins:02d}:{secs:05.2f}")
+    set_session_status("running", elapsed)
     app.after(50, update_chrono)
 
 
@@ -144,6 +220,7 @@ def start_tracker(sb_entry, bw):
     tracker_on = True
 
     bw.destroy()
+    set_session_status("running", 0.0)
     update_chrono()
 
 
@@ -198,7 +275,7 @@ def stop_window():
         hrs = int(stopped_elapsed // 3600)
         mins = int((stopped_elapsed % 3600) // 60)
         secs = stopped_elapsed % 60
-        chrono_label.configure(text=f"Session stopped : {hrs:02d}:{mins:02d}:{secs:05.2f}")
+        chrono_label.configure(text=f"Status: Stopped | {hrs:02d}:{mins:02d}:{secs:05.2f}")
 
     tracker_on = False
 
@@ -265,7 +342,7 @@ def stop_tracker(eb_entry, bw):
     if start_bankroll is not None and end_bankroll is not None:
         profit = end_bankroll - start_bankroll
         text += f"  |  Profit: {profit:+.2f}"
-    chrono_label.configure(text=text)
+    chrono_label.configure(text=f"Status: Stopped | {text}")
     if start_bankroll is not None and end_bankroll is not None:
         save_in_csv(start_bankroll, end_bankroll, profit, final_elapsed)
         update_stats()
@@ -311,7 +388,7 @@ frame = ctk.CTkFrame(
 )
 frame.grid_columnconfigure(0, weight=2)
 frame.grid_columnconfigure(1, weight=1)
-frame.pack(fill="both", expand=True, padx=20, pady=20)
+frame.pack(fill="x", padx=20, pady=(15, 10))
 
 column1 = ctk.CTkFrame(
     frame,
@@ -387,6 +464,12 @@ profit_per_hour_label = ctk.CTkLabel(
 )
 profit_per_hour_label.grid(row=4, column=0, columnspan=2, sticky="w", padx=5, pady=4)
 
+avg_session_duration_label = ctk.CTkLabel(
+    stats_frame,
+    text="Average session duration : 0s"
+)
+avg_session_duration_label.grid(row=5,column=0,columnspan=2,sticky="w",padx=5,pady=4)
+
 column2 = ctk.CTkFrame(
     frame,
     fg_color="#3a3a3a",
@@ -396,6 +479,41 @@ column2 = ctk.CTkFrame(
     height=250,
 )
 column2.grid(row=0, column=1, sticky="nsew", padx=10, pady=10)
+
+last_session_stats_frame = ctk.CTkFrame(
+    column2,
+    fg_color="#3a3a3a",
+    border_width=0
+)
+last_session_stats_frame.pack(fill="both", expand=True, padx=10, pady=10)
+    
+last_session_stats_frame.grid_columnconfigure(0, weight=1)
+last_session_stats_frame.grid_columnconfigure(1, weight=1)
+
+lss_sb = ctk.CTkLabel(
+    last_session_stats_frame,
+    text="Start bankroll : $0.00",
+)
+lss_sb.grid(row=0, column=0, sticky="w", pady=4, padx=4)
+
+lss_eb = ctk.CTkLabel(
+    last_session_stats_frame,
+    text="End bankroll : $0.00"
+)
+lss_eb.grid(row=0, column=1, sticky="w", padx=4, pady=4)
+
+lss_profit = ctk.CTkLabel(
+    last_session_stats_frame,
+    text="Profit : $0.00"
+)
+lss_profit.grid(row=1, column=0, columnspan=2, sticky="w", padx=4, pady=4)
+
+lss_duration = ctk.CTkLabel(
+    last_session_stats_frame,
+    text="Duration : 0s"
+)
+lss_duration.grid(row=2, column=0, columnspan=2, sticky="w", pady=4, padx=4)
+
 
 start_session_button = ctk.CTkButton(
     frame,
@@ -415,7 +533,7 @@ start_session_button.grid(row=1, column=0, padx=10, pady=10)
 
 stop_session_button = ctk.CTkButton(
     frame,
-    fg_color="#c92828",
+    fg_color="#182cdf",
     border_width=1,
     border_color="#6f6f6f",
     corner_radius=20,
@@ -424,19 +542,41 @@ stop_session_button = ctk.CTkButton(
     text="Stop Tracker",
     text_color="#000000",
     font=("Helvetica", 15, "bold"),
-    hover_color="#741515",
+    hover_color="#09136d",
     command=stop_window,
 )
 stop_session_button.grid(row=1, column=1, padx=10, pady=10)
 
+reset_all_stats_button = ctk.CTkButton(
+    frame,
+    fg_color="#c92828",
+    border_width=1,
+    border_color="#6f6f6f",
+    corner_radius=20,
+    width=50,
+    height=50,
+    text="Reset Stats",
+    text_color="#000000",
+    font=("Helvetica", 15, "bold"),
+    hover_color="#5a0a0a",
+    command=reset_stats,
+)
+reset_all_stats_button.grid(row=1, column=0,columnspan=2 ,padx=10, pady=10)
+
 chrono_label = ctk.CTkLabel(
     app,
-    text="No session currently running ! ",
-    font=("Helvetica", 15)
-
+    text="Status: Idle | No active session",
+    font=("Helvetica", 15),
+    fg_color="#3a3a3a",
+    corner_radius=8,
+    padx=10,
+    pady=6,
 )
 
-chrono_label.pack(padx = 10, pady=15)
+chrono_label.pack(padx=10, pady=(0, 10))
+
+
+
 update_stats()
 
 

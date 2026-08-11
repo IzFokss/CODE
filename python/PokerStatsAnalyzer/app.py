@@ -7,6 +7,7 @@ import os
 # Stopwatch state
 tracker_on = False
 start_time = None
+stopped_elapsed = None
 start_bankroll = None
 
 
@@ -190,6 +191,17 @@ def start_window():
 
 def stop_window():
     """Open dialog to enter end bankroll and stop the session."""
+    global tracker_on, start_time, stopped_elapsed
+
+    if start_time is not None:
+        stopped_elapsed = time.time() - start_time
+        hrs = int(stopped_elapsed // 3600)
+        mins = int((stopped_elapsed % 3600) // 60)
+        secs = stopped_elapsed % 60
+        chrono_label.configure(text=f"Session stopped : {hrs:02d}:{mins:02d}:{secs:05.2f}")
+
+    tracker_on = False
+
     bw = ctk.CTkToplevel(app)
     bw.geometry("300x200")
     bw.title("End bankroll")
@@ -231,13 +243,15 @@ def stop_window():
 
 def stop_tracker(eb_entry, bw):
     """Stop the tracker, compute elapsed and profit, update label, close dialog."""
-    global tracker_on, start_time, start_bankroll
+    global tracker_on, start_time, stopped_elapsed, start_bankroll
     try:
         end_bankroll = float(eb_entry.get())
     except Exception:
         end_bankroll = None
 
-    if start_time is None:
+    if stopped_elapsed is not None:
+        final_elapsed = stopped_elapsed
+    elif start_time is None:
         final_elapsed = 0.0
     else:
         final_elapsed = time.time() - start_time
@@ -255,6 +269,9 @@ def stop_tracker(eb_entry, bw):
     if start_bankroll is not None and end_bankroll is not None:
         save_in_csv(start_bankroll, end_bankroll, profit, final_elapsed)
         update_stats()
+        start_time = None
+        stopped_elapsed = None
+        start_bankroll = None
     bw.destroy()
 
 

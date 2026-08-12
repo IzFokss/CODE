@@ -18,10 +18,76 @@ def get_stats_csv_path():
     return os.path.join(os.path.dirname(os.path.abspath(__file__)), "poker_stats.csv")
 
 def reset_stats():
-    fieldnames = ["sbankroll","ebankroll","profit","duration"]
-    with open('poker_stats.csv',"w",newline='') as csvfile:
-        writer = csv.DictWriter(csvfile,fieldnames=fieldnames)
-        writer.writeheader()
+    def perform_reset():
+        global tracker_on, start_time, stopped_elapsed, start_bankroll
+        fieldnames = ["sbankroll","ebankroll","profit","duration"]
+        with open('poker_stats.csv',"w",newline='') as csvfile:
+            writer = csv.DictWriter(csvfile,fieldnames=fieldnames)
+            writer.writeheader()
+        tracker_on = False
+        start_time = None
+        stopped_elapsed = None
+        start_bankroll = None
+        set_session_status("idle")
+        stop_session_button.configure(state="disabled")
+        update_stats()
+
+    rcw = ctk.CTkToplevel(app)
+    rcw.transient(app)
+    rcw.grab_set()
+    rcw.lift()
+    rcw.focus_force()
+    rcw.geometry("360x240")
+    rcw.title("Confirm Reset")
+    rcw.resizable(False, False)
+    rcw.attributes("-alpha", 0.96)
+
+    rcw_header = ctk.CTkLabel(
+        rcw,
+        text="Confirm Reset",
+        fg_color="#4d4d4d",
+        border_width=1,
+        border_color="#7a7a7a",
+        width=320,
+        height=50,
+        font=("Helvetica", 14, "bold"),
+        corner_radius=12,
+        text_color="#f5f5f5",
+    )
+    rcw_header.pack(pady=(15, 10), padx=20, fill="x")
+
+    rcw_message = ctk.CTkLabel(
+        rcw,
+        text="This will erase all saved session history.\nDo you want to continue?",
+        justify="center",
+        wraplength=300,
+    )
+    rcw_message.pack(pady=(0, 10), padx=20)
+
+    button_frame = ctk.CTkFrame(rcw, fg_color="#2f2f2f", border_width=0)
+    button_frame.pack(fill="x", padx=20, pady=(0, 20))
+
+    cancel_button = ctk.CTkButton(
+        button_frame,
+        text="Cancel",
+        width=140,
+        height=50,
+        command=rcw.destroy,
+        fg_color="#6f6f6f",
+        hover_color="#5a5a5a",
+    )
+    cancel_button.grid(row=0, column=0, padx=(0, 10), pady=10)
+
+    confirm_button = ctk.CTkButton(
+        button_frame,
+        text="Reset",
+        width=140,
+        height=50,
+        command=lambda: [perform_reset(), rcw.destroy()],
+        fg_color="#c92828",
+        hover_color="#8d1616",
+    )
+    confirm_button.grid(row=0, column=1, padx=(10, 0), pady=10)
 
 
 def calculate_stats():
@@ -125,6 +191,7 @@ def update_stats():
     best_session_label.configure(text=f"Best session : ${stats['best_session']:.2f}")
     profit_per_hour_label.configure(text=f"Profit / hour : ${stats['profit_per_hour']:.2f}")
     avg_session_duration_label.configure(text=f"Average session duration : {format_duration(stats['avg_session_duration'])}")
+    reset_all_stats_button.configure(state="normal" if stats['nb_sessions'] > 0 else "disabled")
     update_last_session_stats()
 
 
@@ -220,12 +287,17 @@ def start_tracker(sb_entry, bw):
     tracker_on = True
 
     bw.destroy()
+    stop_session_button.configure(state="normal")
     set_session_status("running", 0.0)
     update_chrono()
 
 
 def start_window():
     bw = ctk.CTkToplevel(app)
+    bw.transient(app)
+    bw.grab_set()
+    bw.lift()
+    bw.focus_force()
     bw.geometry("300x200")
     bw.title("Enter Bankroll")
     bw.resizable(False, False)
@@ -280,6 +352,10 @@ def stop_window():
     tracker_on = False
 
     bw = ctk.CTkToplevel(app)
+    bw.transient(app)
+    bw.grab_set()
+    bw.lift()
+    bw.focus_force()
     bw.geometry("300x200")
     bw.title("End bankroll")
     bw.resizable(False, False)
@@ -343,6 +419,7 @@ def stop_tracker(eb_entry, bw):
         profit = end_bankroll - start_bankroll
         text += f"  |  Profit: {profit:+.2f}"
     chrono_label.configure(text=f"Status: Stopped | {text}")
+    stop_session_button.configure(state="disabled")
     if start_bankroll is not None and end_bankroll is not None:
         save_in_csv(start_bankroll, end_bankroll, profit, final_elapsed)
         update_stats()
@@ -357,7 +434,7 @@ ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("blue")
 
 app = ctk.CTk()
-app.geometry("900x600")
+app.geometry("1220x600")
 app.title("PokerStatsAnalyzer")
 app.resizable(False, False)
 app.attributes("-alpha", 0.97)
@@ -386,8 +463,9 @@ frame = ctk.CTkFrame(
     corner_radius=22,
     fg_color="#2f2f2f",
 )
-frame.grid_columnconfigure(0, weight=2)
+frame.grid_columnconfigure(0, weight=1)
 frame.grid_columnconfigure(1, weight=1)
+frame.grid_columnconfigure(2, weight=1)
 frame.pack(fill="x", padx=20, pady=(15, 10))
 
 column1 = ctk.CTkFrame(
@@ -470,6 +548,40 @@ avg_session_duration_label = ctk.CTkLabel(
 )
 avg_session_duration_label.grid(row=5,column=0,columnspan=2,sticky="w",padx=5,pady=4)
 
+column3 = ctk.CTkFrame(
+    frame,
+    fg_color="#3a3a3a",
+    border_width=1,
+    border_color="#7a7a7a",
+    corner_radius=18,
+    height=250,
+)
+column3.grid(row=0, column=1, sticky="nsew", padx=10, pady=10)
+
+middle_info_frame = ctk.CTkFrame(
+    column3,
+    fg_color="#2f2f2f",
+    border_width=0,
+    corner_radius=12,
+)
+middle_info_frame.pack(fill="both", expand=True, padx=10, pady=10)
+
+middle_title = ctk.CTkLabel(
+    middle_info_frame,
+    text="Session Summary",
+    font=("Helvetica", 18, "bold"),
+    anchor="center",
+)
+middle_title.pack(pady=(20, 8))
+
+middle_desc = ctk.CTkLabel(
+    middle_info_frame,
+    text="Start and stop a session to track bankroll changes.\nReset Stats clears all saved history.",
+    justify="center",
+    wraplength=240,
+)
+middle_desc.pack(padx=10, pady=(0, 20))
+
 column2 = ctk.CTkFrame(
     frame,
     fg_color="#3a3a3a",
@@ -478,7 +590,7 @@ column2 = ctk.CTkFrame(
     corner_radius=18,
     height=250,
 )
-column2.grid(row=0, column=1, sticky="nsew", padx=10, pady=10)
+column2.grid(row=0, column=2, sticky="nsew", padx=10, pady=10)
 
 last_session_stats_frame = ctk.CTkFrame(
     column2,
@@ -544,8 +656,9 @@ stop_session_button = ctk.CTkButton(
     font=("Helvetica", 15, "bold"),
     hover_color="#09136d",
     command=stop_window,
+    state="disabled",
 )
-stop_session_button.grid(row=1, column=1, padx=10, pady=10)
+stop_session_button.grid(row=1, column=2, padx=10, pady=10)
 
 reset_all_stats_button = ctk.CTkButton(
     frame,
@@ -553,15 +666,14 @@ reset_all_stats_button = ctk.CTkButton(
     border_width=1,
     border_color="#6f6f6f",
     corner_radius=20,
-    width=50,
-    height=50,
+    height=100,
     text="Reset Stats",
     text_color="#000000",
     font=("Helvetica", 15, "bold"),
     hover_color="#5a0a0a",
     command=reset_stats,
 )
-reset_all_stats_button.grid(row=1, column=0,columnspan=2 ,padx=10, pady=10)
+reset_all_stats_button.grid(row=1,column=  1 ,padx=10, pady=10)
 
 chrono_label = ctk.CTkLabel(
     app,

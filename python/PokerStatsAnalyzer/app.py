@@ -1,7 +1,8 @@
 import customtkinter as ctk
 import time
 import csv 
-import os 
+import os
+import sys
 
 
 # Stopwatch state
@@ -15,14 +16,18 @@ start_bankroll = None
 
 
 def get_stats_csv_path():
-    return os.path.join(os.path.dirname(os.path.abspath(__file__)), "poker_stats.csv")
+    if getattr(sys, "frozen", False):
+        base_dir = sys._MEIPASS
+    else:
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+    return os.path.join(base_dir, "poker_stats.csv")
 
 def reset_stats():
     def perform_reset():
         global tracker_on, start_time, stopped_elapsed, start_bankroll
         fieldnames = ["sbankroll","ebankroll","profit","duration"]
-        with open('poker_stats.csv',"w",newline='') as csvfile:
-            writer = csv.DictWriter(csvfile,fieldnames=fieldnames)
+        with open(get_stats_csv_path(), "w", newline='') as csvfile:
+            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
             writer.writeheader()
         tracker_on = False
         start_time = None

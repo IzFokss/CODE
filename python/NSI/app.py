@@ -1,13 +1,8 @@
-import customtkinter as ctk
-from tkinter import messagebox
+import matplotlib.pyplot as plt
+import numpy as np
 
 
 
-
-app = ctk.CTk()
-app.geometry("400x300")
-def show_message():
-    messagebox.showinfo("Information", "This is a message box!")
-
-
-app.mainloop() 
+fig,ax = plt.subplots()
+ax.plot([1,2,3,4],[1,4,2,3])
+plt.show()

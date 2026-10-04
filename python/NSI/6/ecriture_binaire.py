@@ -5,7 +5,7 @@ def ecriture_binaire_entier_positif(n):
     resultat = ""
 
     while n > 0:
-        resultat = str(n % 2) + resultat #convertis n%2 en chaine de caractère et y l'ajoute à resultat
+        resultat = str(n % 2) + resultat #convertis n%2 en chaine de caractère et l'ajoute à resultat
         n = n // 2 #mets à jour n 
 
     return resultat

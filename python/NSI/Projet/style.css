@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Isometra&display=swap');
+
+
+
+body {
+  margin: 0;
+  padding: 0;
+}
+.navbar {
+  background-color: rgb(196, 128, 2);
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+}
+
+.navbar ul {
+  display: flex;
+  list-style: none;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+  margin: 0;
+  padding: 0 20px;
+ 
+}
+.navbar li{
+  transition: ease-in-out 0.2s;
+}
+
+.navbar li:hover{
+  transform: scale(1.2);
+  
+}
+.navbar a[aria-current="page"] {
+  text-decoration: underline 2px;
+  text-underline-offset: 6px;
+}
+
+.navbar ul a{
+  font-family: "Isometra", serif;
+  font-weight: 400;
+  font-style: normal;
+  text-decoration: none;
+  color: white;
+  
+}
+.navbar img{
+  height: 50px;
+  width: 50px;
+}

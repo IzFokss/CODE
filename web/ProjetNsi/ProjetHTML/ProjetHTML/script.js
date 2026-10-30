@@ -1,95 +1,112 @@
-//programme calculatrice
-const display = document.getElementById("display");
-function appendtodisplay(input) {
-  display.value += input;
+// Programme de calculatrice
+const affichage = document.getElementById("affichage");
+
+// Ajoute le caractère choisi à la fin de ce qui est déjà affiché.
+function ajouteraffichage(caractere) {
+  affichage.value += caractere;
 }
 
-function cleardisplay() {
-  display.value = "";
+// Efface entièrement l'affichage de la calculatrice.
+function effaceraffichage() {
+  affichage.value = "";
 }
-function calculate() {
+
+// Calcule l'expression affichée et montre le résultat.
+// Si l'expression n'est pas valide, affiche un message d'erreur.
+function calculer() {
   try {
-    display.value = eval(display.value);
-  } catch (error) {
-    display.value = "Erreur";
+    affichage.value = eval(affichage.value);
+  } catch (erreur) {
+    affichage.value = "Erreur";
   }
 }
 
-//programme de conversion d'unités
+// Programme de conversion d'unités
 
-const textbox = document.getElementById("textbox");
-const vers_mètres = document.getElementById("vers_mètres");
-const vers_kilomètres = document.getElementById("vers_kilomètres");
+const champdistance = document.getElementById("champ-distance");
+const versmetres = document.getElementById("vers-metres");
+const verskilometres = document.getElementById("vers-kilometres");
 const resultat = document.getElementById("resultat");
-let distance;
+let distanceconvertie;
 
+// Convertit la valeur saisie selon l'unité sélectionnée.
 function convertir() {
-  if (vers_mètres.checked) {
-    distance = Number(textbox.value);
-    distance = distance * 1000;
-    resultat.textContent = distance + "m";
-  } else if (vers_kilomètres.checked) {
-    distance = Number(textbox.value);
-    distance = distance / 1000;
-    resultat.textContent = distance + "km";
+  if (versmetres.checked) {
+    distanceconvertie = Number(champdistance.value);
+    distanceconvertie = distanceconvertie * 1000;
+    resultat.textContent = distanceconvertie + "m";
+  } else if (verskilometres.checked) {
+    distanceconvertie = Number(champdistance.value);
+    distanceconvertie = distanceconvertie / 1000;
+    resultat.textContent = distanceconvertie + "km";
   } else {
-    resultat.textContent = "Choissisez une unité";
+    resultat.textContent = "Choisissez une unité";
   }
 }
 
-//programme de calculateur de budget
+// Programme de calcul de budget
 
-const revenueInput = document.getElementById("revenue");
-const depensesInput = document.getElementById("depenses");
-const budget_restant = document.getElementById("budget_restant");
+const champrevenus = document.getElementById("revenus");
+const champdepenses = document.getElementById("depenses");
+const affichagebudgetrestant = document.getElementById("budget-restant");
 
-function updatebudget() {
-  const montantRevenue = parseFloat(revenueInput.value) || 0;
-  const montantDepenses = parseFloat(depensesInput.value) || 0;
-  const budget = montantRevenue - montantDepenses;
-  budget_restant.textContent = budget.toFixed(2) + " €";
+// Calcule les revenus moins les dépenses, puis affiche deux décimales.
+function mettreajourbudget() {
+  const montantrevenus = parseFloat(champrevenus.value) || 0;
+  const montantdepenses = parseFloat(champdepenses.value) || 0;
+  const budget = montantrevenus - montantdepenses;
+  affichagebudgetrestant.textContent = budget.toFixed(2) + " €";
 }
 
-revenueInput.addEventListener("input", updatebudget);
-depensesInput.addEventListener("input", updatebudget);
+champrevenus.addEventListener("input", mettreajourbudget);
+champdepenses.addEventListener("input", mettreajourbudget);
 
-//programme du gestionnaire de taches
+// Programme de gestion des tâches
 
-const inputBox = document.getElementById("input-box");
-const conteneurListe = document.getElementById("conteneur-liste");
+const champnouvelletache = document.getElementById("champ-tache");
+const conteneurliste = document.getElementById("liste-taches");
 
-function ajtTache() {
-  if (inputBox.value === "") {
+// Crée une tâche avec le texte saisi, puis enregistre la liste.
+function ajoutertache() {
+  if (champnouvelletache.value === "") {
     alert("Vous devez entrer du texte !");
   } else {
-    let li = document.createElement("li");
-    li.innerHTML = inputBox.value;
-    conteneurListe.appendChild(li);
-    let span = document.createElement("span");
-    span.innerHTML = "\u00d7";
-    li.appendChild(span);
+    let elementtache = document.createElement("li");
+    elementtache.innerHTML = champnouvelletache.value;
+    conteneurliste.appendChild(elementtache);
+    let boutonsupprimer = document.createElement("span");
+    boutonsupprimer.innerHTML = "\u00d7";
+    elementtache.appendChild(boutonsupprimer);
   }
-  inputBox.value = "";
-  sauvegarderDonnees();
+  champnouvelletache.value = "";
+  sauvegarderdonnees();
 }
 
-conteneurListe.addEventListener(
+// Réagit aux clics dans la liste : cliquer sur une tâche la coche,
+// cliquer sur sa croix la supprime. La liste est ensuite enregistrée.
+conteneurliste.addEventListener(
   "click",
-  function (e) {
-    if (e.target.tagName === "LI") {
-      e.target.classList.toggle("coche");
-      sauvegarderDonnees();
-    } else if (e.target.tagName === "SPAN") {
-      e.target.parentElement.remove();
-      sauvegarderDonnees();
+  function (evenement) {
+    if (evenement.target.tagName === "LI") {
+      evenement.target.classList.toggle("coche");
+      sauvegarderdonnees();
+    } else if (evenement.target.tagName === "SPAN") {
+      evenement.target.parentElement.remove();
+      sauvegarderdonnees();
     }
   },
   false,
 );
-function sauvegarderDonnees() {
-  localStorage.setItem("donnees", conteneurListe.innerHTML);
+
+// Enregistre le contenu HTML de la liste dans le stockage du navigateur.
+function sauvegarderdonnees() {
+  localStorage.setItem("donnees", conteneurliste.innerHTML);
 }
-function ActualiserDonnees() {
-  conteneurListe.innerHTML = localStorage.getItem("donnees");
+
+// Recharge la liste enregistrée pour la retrouver après un rechargement.
+function actualiserdonnees() {
+  conteneurliste.innerHTML = localStorage.getItem("donnees");
 }
-ActualiserDonnees();
+
+// Restaure les tâches dès le chargement de ce script.
+actualiserdonnees();

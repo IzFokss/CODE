@@ -1,0 +1,156 @@
+body {
+  background-color: #1e293b; /*Applique une couleur de fond au body qui contient tous les elements de la page dans notre cas, !! Cette couleur s'affichera uniquement si 
+  l'image de fond ne charge pas !!*/
+  font-family:
+    Verdana, Geneva, Tahoma, sans-serif; /*Applique une police d'ecriture à tout le body, 
+    tous les elements enfants de body auront cette police sauf en cas d'indication contraire*/
+  color: white; /*Change la couleur du texte en blanc*/
+  background-image:
+    linear-gradient(rgba(15, 23, 42, 0.55), rgba(15, 23, 42, 0.75)),
+    /* Degrade de couleur qui se met comme un calque de couleur par dessus l'image de fond*/
+    url("images/background-accueil.jpg"); /*image de fond, url() sert ici à specifier le chemin de l'image de fond*/
+
+  background-size: cover; /*ajuste la taille du fond pour couvrir toute la zone sur laquelle il s'applique, ici le body*/
+  background-position: center; /*indique que la partie visible de l'image de fond est le centre, uniquement les bords peuvent etre rognes pour couvrir la zone du body*/
+  background-attachment: fixed; /*Permet la stabilite du fond, qui n'est pas impacte par le defilement de la page avec la molette*/
+  background-repeat: no-repeat; /*Ne repete pas le fond, pour que l'image n'apparaisse qu'une fois */
+}
+
+.navbar {
+  /*selectionneur de la barre de navigation, les proprietes heritables du body (police, couleur du texte) s'appliquent aussi à la barre de navigation*/
+  background-color: #172235; /*applique une couleur de fond*/
+  padding: 12px 25px; /*ajoute une marge interieure à la barre de navigation, le premier paramètre est la marge verticale (haut et bas) et le deuxieme est la marge horizontale (gauche et droite)*/
+  margin: 15px 20px; /*ajoute une marge exterieure, premier parametre vertical, deuxieme horizontal*/
+  border: 1px solid #334155; /*ajoute une bordure de 1px, pleine (solid) et de couleur #334155 à la barre de navigation*/
+  border-radius: 15px; /*arondis les coins de la bordure avec un rayon de 15pixels*/
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /*ajoute une ombre portee, 0 et le decalage horizontal, 4 est le decalage vertical, 15 est le rayon du flou de l'ombre,
+  rgba permet de specifier la couleur de l'ombre et son opacite en dernier parametre*/
+}
+
+.navbar ul {
+  display: flex; /*transforme la liste en conteneur flex, les elements li se placent cote à cote sur une ligne*/
+  list-style: none; /*enleve les puces de la liste*/
+  justify-content: space-between; /*repartit les elements sur la largeur, le premier à gauche, le dernier à droite et l'espace est reparti entre les deux*/
+  align-items: center; /*centre les elements verticalement dans la barre*/
+  margin: 0; /*supprime la marge exterieure par defaut de la liste*/
+  padding: 0; /*supprime la marge interieure par defaut de la liste*/
+}
+
+.navbar li {
+  display: flex; /*chaque li devient aussi un conteneur flex pour aligner son contenu (logo et titre) cote à cote*/
+  align-items: center; /*centre le contenu du li verticalement*/
+  gap: 12px; /*ajoute un espace de 12px entre les elements à l'interieur du li*/
+}
+
+.navbar ul a {
+  text-decoration: none; /*enleve le soulignement par defaut des liens*/
+  font-family:
+    Verdana, Geneva, Tahoma, sans-serif; /*police du lien, les liens ne prennent pas toujours la police du body selon le navigateur donc on la precise*/
+  font-weight: 400; /*epaisseur normale du texte (400 = normal, 700 = gras)*/
+  font-size: 18px; /*taille du texte en pixels*/
+  color: #e2e8f0; /*couleur du texte du lien, un gris très clair*/
+  transition: color 0.2s ease; /*le changement de couleur se fait progressivement en 0.2 seconde au lieu d'etre instantane*/
+}
+
+/*Modifie la taille du logo*/
+.navbar img {
+  width: 50px; /*largeur du logo*/
+  height: 50px; /*hauteur du logo*/
+  object-fit: contain; /*l'image entière reste visible dans la zone de 50x50 sans etre deformee ni coupee*/
+}
+
+#titre {
+  margin: 0; /*supprime la marge par defaut du titre pour qu'il soit bien aligne avec le logo*/
+  color: #38bdf8; /*couleur bleu clair du titre*/
+  font-size: 26px; /*taille du titre*/
+}
+
+/* Changement de couleur au survol */
+.navbar ul a:hover {
+  color: #38bdf8; /*quand la souris passe sur un lien, il devient bleu clair*/
+}
+
+.intro {
+  margin: 120px auto 80px; /*120px de marge en haut, auto à gauche et à droite pour centrer le bloc horizontalement, 80px en bas*/
+  padding: 20px; /*marge interieure de 20px sur les 4 cotes*/
+  max-width: 850px; /*le bloc ne depasse jamais 850px de large*/
+  text-align: center; /*centre le texte horizontalement*/
+  color: white; /*texte en blanc*/
+}
+
+/*Titre*/
+#slogan {
+  font-size: 52px; /*grande taille de texte pour que le titre ressorte*/
+  margin: 20px 0; /*20px de marge en haut et en bas, 0 sur les cotes*/
+  font-weight: bold; /*texte en gras*/
+  letter-spacing: -1px; /*reduit legerement l'espace entre les lettres, ça rend les gros titres plus compacts*/
+}
+
+/*Sous-titre*/
+.intro h2 {
+  color: #38bdf8; /*couleur bleu clair*/
+  font-size: 24px; /*taille du sous-titre, plus petite que le titre*/
+  margin-bottom: 20px; /*espace de 20px sous le sous-titre*/
+}
+
+/* Description */
+.intro p {
+  color: #cbd5e1; /*gris clair, un peu moins fort que le blanc pour hierarchiser le texte*/
+  font-size: 17px; /*taille du texte*/
+  line-height: 1.8; /*hauteur de ligne, 1.8 fois la taille du texte, ça aère et facilite la lecture*/
+  max-width: 650px; /*limite la largeur du paragraphe pour eviter des lignes trop longues*/
+  margin: 0 auto 30px; /*0 en haut, auto à gauche et à droite pour centrer le paragraphe, 30px en bas*/
+}
+
+.bouton {
+  display: inline-block; /*reste sur la ligne comme du texte mais accepte les marges et dimensions comme un bloc*/
+  background-color: #38bdf8; /*fond bleu clair*/
+  color: #1e293b; /*texte bleu fonce pour bien contraster avec le fond clair*/
+  text-decoration: none; /*enleve le soulignement du lien*/
+  font-weight: bold; /*texte en gras*/
+  padding: 15px 25px; /*marge interieure, 15px vertical et 25px horizontal*/
+  border-radius: 10px; /*arrondis les coins du bouton*/
+  transition: 0.3s; /*les changements au survol se font progressivement en 0.3 seconde*/
+}
+
+.bouton:hover {
+  background-color: #7dd3fc; /*au survol, le fond devient un bleu plus clair*/
+  transform: translateY(
+    -3px
+  ); /*au survol, le bouton monte de 3px, ça donne un effet de soulèvement*/
+}
+
+/* Conteneur des trois blocs */
+.avantages {
+  display: flex; /*place les trois blocs cote à cote*/
+  justify-content: center; /*centre les blocs horizontalement*/
+  gap: 25px; /*espace de 25px entre chaque bloc*/
+  max-width: 1100px; /*largeur maximale du conteneur*/
+  margin: 60px auto; /*60px de marge en haut et en bas, auto à gauche et à droite pour centrer le conteneur*/
+  padding: 20px; /*marge interieure de 20px*/
+}
+
+/* Style de chaque bloc */
+.bloc {
+  flex: 1; /*chaque bloc prend la meme part de l'espace disponible, donc ils ont tous la meme largeur*/
+  background-color: #172235; /*meme couleur de fond que la barre de navigation*/
+  border: 1px solid #334155; /*bordure fine de 1px*/
+  border-radius: 18px; /*coins arrondis*/
+  padding: 30px 25px; /*marge interieure, 30px vertical et 25px horizontal*/
+  text-align: center; /*centre le texte*/
+  color: white; /*texte en blanc*/
+}
+
+/* Titres des blocs */
+.bloc h3 {
+  color: #38bdf8; /*couleur bleu clair*/
+  font-size: 21px; /*taille du titre*/
+  margin-bottom: 12px; /*espace de 12px sous le titre*/
+}
+
+/* Texte des blocs */
+.bloc p {
+  color: #cbd5e1; /*gris clair*/
+  font-size: 15px; /*taille du texte*/
+  line-height: 1.7; /*hauteur de ligne pour aerer le texte*/
+}

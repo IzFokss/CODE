@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Outils | Smartlife</title>
+    <link rel="stylesheet" href="style1.css" />
+    <link
+      rel="icon"
+      type="image/jpg"
+      href="images/Firefly_RemoveBackground.png"
+    />
+  </head>
+  <body>
+    <!--Barre de navigation pour se déplacer entre les pages-->
+    <nav class="navbar">
+      <ul>
+        <li>
+          <a href="accueil.html"
+            ><img src="images/Firefly_RemoveBackground.png" alt=""
+          /></a>
+          <h1 id="titre">Smartlife</h1>
+        </li>
+        <li><a href="accueil.html">Accueil</a></li>
+        <li><a href="outils.html">Outils</a></li>
+        <li><a href="Apropos.html">À propos</a></li>
+      </ul>
+    </nav>
+
+    <main class="grille-outils">
+      <!-- Panneau de la calculatrice -->
+      <section class="panneau">
+        <h2>Calculatrice</h2>
+        <!--Ecran où le calcul est afficher-->
+        <div id="calc">
+          <input id="display" readonly />
+
+          <!--Boutons pour écrire les nombres et les opérations-->
+          <div id="characteres">
+            <button onclick="cleardisplay()" class="operator-btn">C</button>
+            <button onclick="appendtodisplay('(')">(</button>
+            <button onclick="appendtodisplay(')')">)</button>
+            <button onclick="appendtodisplay('**')" class="operator-btn">
+              ^
+            </button>
+            <button onclick="appendtodisplay('/')" class="operator-btn">
+              /
+            </button>
+
+            <button onclick="appendtodisplay('7')">7</button>
+            <button onclick="appendtodisplay('8')">8</button>
+            <button onclick="appendtodisplay('9')">9</button>
+            <button onclick="appendtodisplay('*')" class="operator-btn">
+              ×
+            </button>
+
+            <button onclick="appendtodisplay('4')">4</button>
+            <button onclick="appendtodisplay('5')">5</button>
+            <button onclick="appendtodisplay('6')">6</button>
+            <button onclick="appendtodisplay('-')" class="operator-btn">
+              −
+            </button>
+
+            <button onclick="appendtodisplay('1')">1</button>
+            <button onclick="appendtodisplay('2')">2</button>
+            <button onclick="appendtodisplay('3')">3</button>
+            <button onclick="appendtodisplay('+')" class="operator-btn">
+              +
+            </button>
+
+            <button onclick="appendtodisplay('0')">0</button>
+            <button onclick="appendtodisplay('.')">.</button>
+            <button onclick="calculate()">=</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- section du convertisseur -->
+      <section class="panneau">
+        <h2>Convertisseur</h2>
+
+        <!--Formulaire qui permet de choisir le nombre et le sens de conversion-->
+        <form>
+          <h1>Convertisseur d'unités:</h1>
+          <input type="number" id="textbox" value="0" /><br />
+
+          <input type="radio" id="vers_mètres" name="unité" />
+          <label for="vers_mètres">Kilométres vers mètres</label><br />
+
+          <input type="radio" id="vers_kilomètres" name="unité" />
+          <label for="vers_kilomètres">Mètres vers kilomètres</label> <br />
+
+          <button type="button" onclick="convertir()">Calculer</button>
+          <p id="resultat"></p>
+        </form>
+      </section>
+
+      <!-- panneau du budget -->
+      <section class="panneau">
+        <h2>Calcul de budget</h2>
+
+        <!--Les champs pour entrer les revenues et les dépenses-->
+        <form id="calcul-budget">
+          <label for="revenue">Revenue total:</label>
+          <input
+            type="number"
+            placeholder="Entrer votre revenue"
+            required
+            id="revenue"
+          />
+          <label for="depenses">Dépenses total:</label>
+          <input
+            type="number"
+            placeholder="Entrer vos dépenses"
+            required
+            id="depenses"
+          />
+          <!--le budget restant s'affiche ici-->
+          <div class="resultat_budget">
+            <h2>Votre budget restant: <span id="budget_restant">0€</span></h2>
+          </div>
+        </form>
+      </section>
+
+      <!-- liste des taches -->
+      <section class="panneau">
+        <h2>Gestion des taches</h2>
+
+        <!--Zone pour ajouter et afficher les taches de la liste-->
+        <div class="gestionnaire-taches">
+          <div class="row">
+            <input type="text" id="input-box" placeholder="Tâche" />
+            <button id="ajt-tache-btn" onclick="ajtTache()">Ajouter</button>
+          </div>
+          <ul id="conteneur-liste"></ul>
+        </div>
+      </section>
+    </main>
+
+    <!--Lien vers le script qui fait fonctionner les outils-->
+    <script src="script.js"></script>
+  </body>
+</html>

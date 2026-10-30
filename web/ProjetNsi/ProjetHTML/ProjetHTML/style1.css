@@ -4,7 +4,7 @@ body {
   color: white; /*Definit la couleur du texte du body, cette propriete est aussi heritee, donc tous les elements enfants sans couleur propre la reprennent automatiquement*/
 }
 
-.navbar {
+.barre-navigation {
   background-color: #172235; /*Peint le fond de la boite de la navbar, le selecteur .navbar cible tous les elements qui ont class="navbar" dans le HTML*/
   padding: 12px 25px; /*Ajoute de l'espace ENTRE le contenu et la bordure, à l'interieur de la boite. Avec deux valeurs : la premiere s'applique au haut et au bas, la seconde à la gauche et à la droite. Le fond colore s'etend sous le padding, c'est pour ça que la barre grossit visuellement*/
   margin: 15px 20px; /*Ajoute de l'espace à l'EXTERIEUR de la bordure, entre la navbar et ses voisins (ou le bord de la fenetre). Contrairement au padding, la marge n'est pas colorée par le background*/
@@ -13,7 +13,7 @@ body {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /*Dessine une copie floutee de la boite derriere elle. Les valeurs sont : decalage horizontal (0), decalage vertical (4px vers le bas), rayon de flou (15px), puis la couleur. rgba(0,0,0,0.2) = noir (0,0,0) avec 20% d'opacite (le 4e nombre va de 0 à 1)*/
 }
 
-.navbar ul {
+.barre-navigation ul {
   display: flex; /*Change le mode de mise en page de l'element : il devient un conteneur flex, ses enfants directs (les li) deviennent des "flex items" qui sont disposes sur un axe principal, horizontal par defaut, au lieu d'etre empiles comme des blocs*/
   list-style: none; /*Les puces ne sont pas des images mais un marqueur genere par le navigateur pour les elements en display list-item, cette propriete lui dit de ne pas generer ce marqueur*/
   justify-content: space-between; /*Agit sur l'axe principal (horizontal) : le navigateur calcule l'espace libre restant dans le conteneur et le repartit en parts egales entre les items, sans en mettre aux extremites, donc premier item colle à gauche et dernier à droite*/
@@ -22,13 +22,13 @@ body {
   padding: 0; /*Meme chose pour le padding par defaut du ul, qui sert normalement à decaler les puces vers la droite*/
 }
 
-.navbar li {
+.barre-navigation li {
   display: flex; /*Chaque li est à la fois un flex item du ul ET un conteneur flex pour ses propres enfants (image et titre ou lien), ce qui permet de les aligner sur une meme ligne*/
   align-items: center; /*Centre verticalement l'image et le texte les uns par rapport aux autres sur l'axe secondaire du li*/
   gap: 12px; /*Insere un espace fixe uniquement ENTRE les enfants du conteneur flex, jamais avant le premier ni apres le dernier, ce que des marges ne font pas proprement*/
 }
 
-.navbar ul a {
+.barre-navigation ul a {
   text-decoration: none; /*Les liens recoivent un soulignement par defaut de la feuille de style du navigateur (text-decoration: underline), on le remplace par none pour supprimer la ligne*/
   font-weight: 400; /*Choisit quelle variante de la police est utilisee : 400 correspond à la graisse normale, 700 au gras. Le navigateur cherche la version de la police correspondant à ce nombre*/
   font-size: 18px; /*Fixe la hauteur de reference des caracteres, 18 pixels ecran*/
@@ -37,7 +37,7 @@ body {
 }
 
 /*Modifie la taille du logo*/
-.navbar img {
+.barre-navigation img {
   width: 50px; /*Impose la largeur de la zone d'affichage de l'image, sans cette regle l'image s'afficherait à sa taille d'origine*/
   height: 50px; /*Impose la hauteur de la zone d'affichage, ici les deux dimensions forment une zone carree*/
   object-fit: contain; /*Controle comment l'image est ajustee dans sa zone de 50x50 : "contain" la reduit proportionnellement jusqu'à ce qu'elle rentre entierement, sans deformation. La valeur par defaut (fill) l'etirerait pour remplir la zone*/
@@ -50,7 +50,7 @@ body {
 }
 
 /* Changement de couleur au survol */
-.navbar ul a:hover {
+.barre-navigation ul a:hover {
   color: #38bdf8; /*:hover est une pseudo-classe, le navigateur ajoute temporairement cette regle à l'element tant que le pointeur est dessus. Comme la regle precedente a une transition sur color, le changement se fait en 0.2s*/
 }
 
@@ -100,7 +100,7 @@ body {
 }
 
 /* Écran de la calculatrice */
-#display {
+#affichage {
   display: block; /*Un input est "inline-block" par defaut, ce qui peut laisser un petit espace sous lui. En block il occupe sa propre ligne entiere*/
   width: 100%; /*Occupe toute la largeur de #calc (moins son padding)*/
   height: 75px; /*Hauteur fixe de l'ecran*/
@@ -191,7 +191,7 @@ form h1 {
 }
 
 /* Champ de saisie */
-#textbox {
+#champ-distance {
   width: 75%; /*Pourcentage de la largeur du parent (le form)*/
   box-sizing: border-box; /*Le padding et la bordure sont inclus dans ces 75%*/
   text-align: center; /*Le texte saisi est centre dans le champ*/
@@ -288,7 +288,7 @@ form button:hover {
 }
 
 /* Bloc du résultat */
-#calcul-budget .resultat_budget {
+#calcul-budget .resultat-budget {
   margin-top: 10px; /*Espace au dessus du bloc, en plus du gap de 12px*/
   padding: 15px; /*Espace interieur*/
   background-color: #0f172a; /*Fond fonce*/
@@ -305,7 +305,7 @@ form button:hover {
 }
 
 /* Montant restant */
-#budget_restant {
+#budget-restant {
   display: block; /*Si c'est un span (inline par defaut), il ne peut pas prendre de marge verticale, en block il passe sur sa propre ligne et accepte margin-top*/
   margin-top: 8px; /*Espace au dessus du montant*/
   color: #38bdf8; /*Bleu clair*/
@@ -326,7 +326,7 @@ form button:hover {
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /*Ombre legere*/
 }
 
-.row {
+.ligne {
   display: flex; /*Conteneur flex horizontal (row est la valeur par defaut de flex-direction), le champ et le bouton se placent cote à cote*/
   align-items: center; /*Centre verticalement le champ et le bouton*/
   justify-content: space-between; /*Repartit l'espace libre entre les elements, premier à gauche et dernier à droite*/
@@ -339,7 +339,7 @@ input {
   padding: 10px; /*Espace interieur*/
   color: white; /*Texte blanc*/
 }
-#ajt-tache-btn {
+#bouton-ajouter-tache {
   border: none; /*Supprime la bordure par defaut*/
   outline: none; /*Supprime le contour au focus*/
   padding: 16px 50px; /*16px vertical, 50px horizontal : le bouton est large grace à ce padding*/
@@ -349,7 +349,7 @@ input {
   cursor: pointer; /*Curseur main*/
   border-radius: 40px; /*Un rayon superieur à la moitie de la hauteur : le navigateur le limite automatiquement, ce qui donne des extremites completement rondes (forme de pilule)*/
 }
-#conteneur-liste li {
+#liste-taches li {
   list-style: none; /*Supprime la puce*/
   font-size: 17px; /*Taille du texte de la tache*/
   padding: 12px 8px 12px 50px; /*Quatre valeurs dans le sens des aiguilles d'une montre : haut 12px, droite 8px, bas 12px, gauche 50px. Les 50px à gauche laissent la place pour l'icone de case*/
@@ -358,7 +358,7 @@ input {
   position: relative; /*Le li devient un point de repere (ancre) pour les enfants en position: absolute : leurs coordonnees seront calculees par rapport à ce li et non par rapport à la page*/
 }
 
-#conteneur-liste li::before {
+#liste-taches li::before {
   content: ""; /*::before cree un pseudo-element, un element fantome inséré avant le contenu du li. Il n'existe que si content est defini, ici une chaine vide car on veut juste une boite pour afficher l'image*/
   position: absolute; /*Sort le pseudo-element du flux normal : il n'occupe plus de place et se positionne avec top/left par rapport au li (qui est en position: relative)*/
   height: 28px; /*Hauteur de la boite*/
@@ -373,15 +373,15 @@ input {
 }
 
 /* État coché */
-#conteneur-liste li.coche {
+#liste-taches li.coche {
   color: #94a3b8; /*Le selecteur "li.coche" (sans espace) cible un li qui possede aussi la classe coche, probablement ajoutee par le JavaScript au clic. Le texte devient gris*/
   text-decoration: line-through; /*Trace une ligne au milieu du texte*/
 }
 
-#conteneur-liste li.coche::before {
+#liste-taches li.coche::before {
   background-image: url(images/coche.png); /*Quand le li a la classe coche, cette regle plus specifique remplace l'image de fond du pseudo-element par l'icone de case cochee*/
 }
-#conteneur-liste li span {
+#liste-taches li span {
   position: absolute; /*Le span (probablement le bouton de suppression x) sort du flux et se positionne par rapport au li*/
   right: 0; /*Colle le span au bord droit du li*/
   top: 5px; /*Le decale de 5px depuis le haut du li*/
@@ -393,6 +393,6 @@ input {
   text-align: center; /*Centre le texte horizontalement*/
   border-radius: 50%; /*Boite circulaire, visible au survol*/
 }
-#conteneur-liste li span:hover {
+#liste-taches li span:hover {
   background-color: #edeef0; /*Au survol, le cercle prend un fond gris tres clair*/
 }

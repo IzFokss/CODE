@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smartlife</title>
+    <link rel="stylesheet" href="style.css" />
+    <!--relier ce fichier au fichier style.css pour appliquer des styles-->
+    <!--Pour rajouter un logo sur l'onglet du navigateur-->
+    <link
+      rel="icon"
+      type="image/jpg"
+      href="images/Firefly_RemoveBackground.png"
+    />
+  </head>
+  <body>
+    <nav class="navbar">
+      <!--Créer une barre de navigation avec des éléments-->
+      <ul>
+        <!--Liste des éléments présents dans la barre de navigation-->
+        <li>
+          <!--Logo du site comme élémént de la liste, qui renvoie vers la page accueil.html grâce à la balise <a> -->
+          <a href="accueil.html"
+            ><img src="images/Firefly_RemoveBackground.png" alt=""
+          /></a>
+          <h1 id="titre">Smartlife</h1>
+          <!-- Titre avec l'identifiant titre pour mieux se repérer dans le css et pouvoir lui ajouter un style unique. -->
+        </li>
+        <li><a href="accueil.html">Accueil</a></li>
+        <!--Liens vers les pages correspondantes grâce à la balise <a> -->
+        <li><a href="outils.html">Outils</a></li>
+        <li><a href="Apropos.html">À propos</a></li>
+      </ul>
+    </nav>
+
+    <section class="intro">
+      <!-- La section sert ici pour regrouper plusieurs éléments ensemble, la classe intro permet d'appliquer des styles uniquement à cette section
+      avec le selectionneur .intro -->
+      <h1 id="slogan">Simplifie ton quotidien.</h1>
+      <!-- Id permettant d'appliquer un style uniquement à ce H1-->
+
+      <h2>Tout ce dont tu as besoin, au même endroit.</h2>
+      <p>
+        SmartLife rassemble des outils simples et pratiques pour t'aider à
+        organiser tes tâches, gérer ton budget et gagner du temps.
+      </p>
+
+      <a href="outils.html" class="bouton">Découvrir les outils →</a>
+      <!--Ceci est un lien qui a pour classe bouton, le style imite un bouton amenant sur la page outils.html
+      cela évite de devoir gérer en javascript l'action du click-->
+    </section>
+
+    <section class="avantages">
+      <!--Nouvelle section pour séparer l'intro des avantages-->
+      <div class="bloc">
+        <!--Nouvelle div permettant d'appliquer un meme style au .bloc, et ainsi les organiser dans la section .avantages-->
+        <h3>Rapide et simple</h3>
+        <p>
+          Utilise des outils pratiques et faciles à prendre en main pour gagner
+          du temps au quotidien.
+        </p>
+      </div>
+
+      <div class="bloc">
+        <h3>Tout au même endroit</h3>
+        <p>
+          Retrouve plusieurs outils utiles sur un seul site, sans avoir à
+          naviguer partout.
+        </p>
+      </div>
+
+      <div class="bloc">
+        <h3>Plus organisé</h3>
+        <p>
+          Organise tes tâches, calcule ton budget et simplifie tes activités
+          quotidiennes.
+        </p>
+      </div>
+    </section>
+  </body>
+</html>

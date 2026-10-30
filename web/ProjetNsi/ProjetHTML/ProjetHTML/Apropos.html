@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>À Propos | Smartlife</title>
+    <!--Lien vers le fichier css pour mettre du style a la page-->
+    <link rel="stylesheet" href="style_APropos.css" />
+    <!--Logo qui s'affiche dans l'onglet du navigateur-->
+    <link
+      rel="icon"
+      type="image/jpg"
+      href="images/Firefly_RemoveBackground.png"
+    />
+  </head>
+  <body>
+    <!--Barre de exactement identique aux trois fichiers html-->
+    <nav class="navbar">
+      <ul>
+        <li>
+          <a href="accueil.html">
+            <img src="images/Firefly_RemoveBackground.png" alt="" />
+          </a>
+          <h1 id="titre">Smartlife</h1>
+        </li>
+        <li><a href="accueil.html">Accueil</a></li>
+        <li><a href="outils.html">Outils</a></li>
+        <li><a href="Apropos.html">À propos</a></li>
+      </ul>
+    </nav>
+
+    <!--Titre principal de la page-->
+    <h1>À Propos du site</h1>
+    <div class="premiere-section">
+      <!--Sectionqui regroupe les sources -->
+      <section class="Presentation">
+        <h2>Les sources</h2>
+
+        <p>
+          Certains de nos outils ont été réalisés avec l'aide de sources
+          externes. Pour plus de détails
+          <a href="#tableau">Cliquer ici !</a>
+        </p>
+        <h3>Tutoriels utilisés pour ce site</h3>
+
+        <!--Liste de liens cliquables -->
+        <ol>
+          <!--La balise ol sert à faire une liste numerotee -->
+          <li>
+            <a href="https://youtu.be/spQKFlt9BnM?si=xmtZ60XR1Dmoc54x"
+              >Calculateur de budget</a
+            >
+          </li>
+          <li>
+            <a href="https://youtu.be/G0jO8kUrg-I?si=cJpTcLKKDv612dHc"
+              >Gestionnaire de tâches</a
+            >
+          </li>
+          <li>
+            <a href="https://youtu.be/I5kj-YsmWjM?si=UDr-CSCVOashpbxk "
+              >Calculatrice en JS</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://stackoverflow.com/questions/63122096/making-a-unit-converter-by-javascript-and-html"
+              >Convertisseur d'unités</a
+            >
+          </li>
+          <li>
+            <a href="https://youtu.be/p1QU3kLFPdg?si=uWHZeAnkFypedR_d"
+              >Mise en ligne du site</a
+            >
+          </li>
+        </ol>
+
+        <!--Liste des sites utilises-->
+        <h3>Pages utilisées pour la création du site</h3>
+        <ol>
+          <li>
+            <a href="https://www.w3schools.com/css/default.asp"
+              >Documentation CSS</a
+            >
+          </li>
+        </ol>
+      </section>
+      <!--image qui accompagne les sources sur la page-->
+      <section class="illustration">
+        <img src="images/glowing-digital-workspace-stockcake.jpg" alt="" />
+      </section>
+    </div>
+    <!--presentation du but du site et des langages utiliser-->
+    <section class="description">
+      <h2>Description du site</h2>
+      <p>
+        Le site de <strong>Smartlife</strong> a été conçu dans le but d'aider
+        toute personne en difficulté de gestion (vie professionnelle et
+        personnelle) dans le but d'organiser ses projets et son avenir, basé sur
+        le langage <strong>HTML</strong>, <strong>CSS</strong> pour le style et
+        <strong>JavaScript</strong> pour la logique.
+      </p>
+      <ul>
+        <li><strong>HTML</strong> : la structure des pages</li>
+        <li><strong>CSS</strong> : le style et les couleurs</li>
+        <li><strong>JavaScript</strong> : le fonctionnement des outils</li>
+      </ul>
+
+      <!--logo cliquable qui renvoie à la page d'accueil-->
+      <a href="accueil.html"
+        ><img
+          src="images/Firefly_RemoveBackground.png"
+          alt="Liste de tâches avec un crayon"
+      /></a>
+    </section>
+
+    <!--
+      Tableau qui liste les outils, leurs fonctions et leurs sources.
+      <table> contient tout le tableau. Son id="tableau" permet au lien
+      « Cliquer ici ! » plus haut sur la page d'arriver directement ici.
+      <thead> regroupe la ligne d'en-têtes, et <tbody> regroupe les lignes
+      contenant les informations.
+      <tr> crée une ligne du tableau.
+      Dans la ligne d'en-têtes, <th> crée une cellule de titre (Outil,
+      Fonction, etc.). Dans les autres lignes, <td> crée une cellule
+      contenant une valeur correspondant à la colonne.
+      Les cellules sont placées dans le même ordre que les titres :
+      Outil, Fonction, Technologie, puis Source.
+    -->
+    <section class="tableau-outils">
+      <h2>Récapitulatif des outils</h2>
+      <table id="tableau">
+        <thead>
+          <tr>
+            <th>Outil</th>
+            <th>Fonction</th>
+            <th>Technologie</th>
+            <th>Source</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Calculatrice</td>
+            <td>Opérations de base, parenthèses, puissance</td>
+            <td>JavaScript (eval)</td>
+            <td>
+              <a href="https://youtu.be/I5kj-YsmWjM?si=UDr-CSCVOashpbxk "
+                >Tutoriel 3</a
+              ><!--lien cliquable-->
+            </td>
+          </tr>
+          <tr>
+            <td>Convertisseur</td>
+            <td>Kilomètres ↔ mètres</td>
+            <td>JavaScript, boutons radio</td>
+            <td>
+              <a
+                href="https://stackoverflow.com/questions/63122096/making-a-unit-converter-by-javascript-and-html"
+                >Tutoriel 4</a
+              ><!--lien cliquable-->
+            </td>
+          </tr>
+          <tr>
+            <td>Calcul de budget</td>
+            <td>Revenu moins dépenses en temps réel</td>
+            <td>JavaScript (addEventListener)</td>
+            <td>
+              <a href="https://youtu.be/spQKFlt9BnM?si=xmtZ60XR1Dmoc54x"
+                >Tutoriel 1</a
+              ><!--lien cliquable-->
+            </td>
+          </tr>
+          <tr>
+            <td>Gestion des tâches</td>
+            <td>Ajouter, cocher, supprimer, sauvegarder</td>
+            <td>JavaScript, localStorage</td>
+            <td>
+              <a href="https://youtu.be/G0jO8kUrg-I?si=cJpTcLKKDv612dHc"
+                >Tutoriel 2</a
+              >
+              <!--lien cliquable-->
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </body>
+</html>

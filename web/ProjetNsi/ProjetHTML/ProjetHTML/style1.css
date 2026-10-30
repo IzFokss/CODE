@@ -1,0 +1,398 @@
+body {
+  background-color: #1e293b; /*Le navigateur peint cette couleur sur toute la zone du body avant de dessiner le reste, #1e293b est un code hexadecimal : 1e = rouge, 29 = vert, 3b = bleu (chaque valeur va de 00 à ff)*/
+  font-family: Verdana, Geneva, Tahoma, sans-serif; /*Le navigateur essaie les polices dans l'ordre : si Verdana n'est pas installee sur l'appareil il passe à Geneva, puis Tahoma, et enfin sans-serif qui designe n'importe quelle police sans empattement du systeme. Cette propriete est heritee : chaque enfant du body qui n'a pas sa propre font-family reprend la valeur de son parent*/
+  color: white; /*Definit la couleur du texte du body, cette propriete est aussi heritee, donc tous les elements enfants sans couleur propre la reprennent automatiquement*/
+}
+
+.navbar {
+  background-color: #172235; /*Peint le fond de la boite de la navbar, le selecteur .navbar cible tous les elements qui ont class="navbar" dans le HTML*/
+  padding: 12px 25px; /*Ajoute de l'espace ENTRE le contenu et la bordure, à l'interieur de la boite. Avec deux valeurs : la premiere s'applique au haut et au bas, la seconde à la gauche et à la droite. Le fond colore s'etend sous le padding, c'est pour ça que la barre grossit visuellement*/
+  margin: 15px 20px; /*Ajoute de l'espace à l'EXTERIEUR de la bordure, entre la navbar et ses voisins (ou le bord de la fenetre). Contrairement au padding, la marge n'est pas colorée par le background*/
+  border: 1px solid #334155; /*Raccourci qui regroupe trois proprietes : border-width (1px), border-style (solid = trait continu) et border-color. Sans border-style le navigateur ne dessine rien, car sa valeur par defaut est none*/
+  border-radius: 15px; /*Le navigateur remplace chaque angle de la boite par un quart de cercle de 15px de rayon, le fond et la bordure sont decoupes selon cette forme*/
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /*Dessine une copie floutee de la boite derriere elle. Les valeurs sont : decalage horizontal (0), decalage vertical (4px vers le bas), rayon de flou (15px), puis la couleur. rgba(0,0,0,0.2) = noir (0,0,0) avec 20% d'opacite (le 4e nombre va de 0 à 1)*/
+}
+
+.navbar ul {
+  display: flex; /*Change le mode de mise en page de l'element : il devient un conteneur flex, ses enfants directs (les li) deviennent des "flex items" qui sont disposes sur un axe principal, horizontal par defaut, au lieu d'etre empiles comme des blocs*/
+  list-style: none; /*Les puces ne sont pas des images mais un marqueur genere par le navigateur pour les elements en display list-item, cette propriete lui dit de ne pas generer ce marqueur*/
+  justify-content: space-between; /*Agit sur l'axe principal (horizontal) : le navigateur calcule l'espace libre restant dans le conteneur et le repartit en parts egales entre les items, sans en mettre aux extremites, donc premier item colle à gauche et dernier à droite*/
+  align-items: center; /*Agit sur l'axe secondaire (vertical) : chaque item est place au milieu de la hauteur de la ligne flex, au lieu d'etre etire ou colle en haut*/
+  margin: 0; /*Le navigateur applique une marge par defaut au ul (feuille de style interne), on l'ecrase en la forçant à 0*/
+  padding: 0; /*Meme chose pour le padding par defaut du ul, qui sert normalement à decaler les puces vers la droite*/
+}
+
+.navbar li {
+  display: flex; /*Chaque li est à la fois un flex item du ul ET un conteneur flex pour ses propres enfants (image et titre ou lien), ce qui permet de les aligner sur une meme ligne*/
+  align-items: center; /*Centre verticalement l'image et le texte les uns par rapport aux autres sur l'axe secondaire du li*/
+  gap: 12px; /*Insere un espace fixe uniquement ENTRE les enfants du conteneur flex, jamais avant le premier ni apres le dernier, ce que des marges ne font pas proprement*/
+}
+
+.navbar ul a {
+  text-decoration: none; /*Les liens recoivent un soulignement par defaut de la feuille de style du navigateur (text-decoration: underline), on le remplace par none pour supprimer la ligne*/
+  font-weight: 400; /*Choisit quelle variante de la police est utilisee : 400 correspond à la graisse normale, 700 au gras. Le navigateur cherche la version de la police correspondant à ce nombre*/
+  font-size: 18px; /*Fixe la hauteur de reference des caracteres, 18 pixels ecran*/
+  color: #e2e8f0; /*Les liens ont une couleur par defaut (bleu) definie par le navigateur, qui est plus prioritaire que l'heritage du body, il faut donc la redefinir directement sur le a*/
+  transition: color 0.2s ease; /*Dit au navigateur de ne pas changer la couleur d'un coup : quand la valeur de color change, il calcule des couleurs intermediaires image par image pendant 0.2s. "ease" est la courbe de vitesse (demarrage rapide puis ralentissement)*/
+}
+
+/*Modifie la taille du logo*/
+.navbar img {
+  width: 50px; /*Impose la largeur de la zone d'affichage de l'image, sans cette regle l'image s'afficherait à sa taille d'origine*/
+  height: 50px; /*Impose la hauteur de la zone d'affichage, ici les deux dimensions forment une zone carree*/
+  object-fit: contain; /*Controle comment l'image est ajustee dans sa zone de 50x50 : "contain" la reduit proportionnellement jusqu'à ce qu'elle rentre entierement, sans deformation. La valeur par defaut (fill) l'etirerait pour remplir la zone*/
+}
+
+#titre {
+  margin: 0; /*Le selecteur # cible l'element dont l'attribut id vaut "titre" (un id est unique dans la page). Le titre est probablement un h1, qui a des marges par defaut, on les annule pour ne pas decaler le titre par rapport au logo*/
+  color: #38bdf8; /*Un id est plus specifique qu'une classe ou qu'une balise : cette couleur l'emporte donc sur celle de .navbar ul a si elles se retrouvent en conflit*/
+  font-size: 26px; /*Remplace la taille par defaut du titre (definie par le navigateur selon la balise h1, h2...)*/
+}
+
+/* Changement de couleur au survol */
+.navbar ul a:hover {
+  color: #38bdf8; /*:hover est une pseudo-classe, le navigateur ajoute temporairement cette regle à l'element tant que le pointeur est dessus. Comme la regle precedente a une transition sur color, le changement se fait en 0.2s*/
+}
+
+/* Grille des panneaux */
+.grille-outils {
+  display: grid; /*Transforme l'element en conteneur grille : le navigateur construit un quadrillage de lignes et de colonnes, et place chaque enfant direct dans une cellule*/
+  grid-template-columns: repeat(2, minmax(0, 1fr)); /*Definit les colonnes de la grille. repeat(2, ...) repete la definition deux fois, donc 2 colonnes. 1fr = une "fraction" de l'espace disponible, les deux colonnes se le partagent à parts egales. minmax(0, 1fr) autorise une colonne à rétrécir jusqu'à 0 : sans ça, un contenu large (un long texte) pourrait imposer sa largeur minimale et deformer la grille*/
+  gap: 15px; /*Espace entre les cellules de la grille, aussi bien entre les lignes qu'entre les colonnes*/
+  width: calc(100% - 40px); /*calc() permet de melanger des unites dans un calcul, ici la largeur vaut la largeur du parent moins 40px, ce qui laisse 20px de chaque cote*/
+  max-width: 1500px; /*Plafonne la largeur : le navigateur prend la plus petite des deux valeurs entre width et max-width, la grille ne depasse donc jamais 1500px*/
+  margin: 25px auto; /*25px en haut et en bas. "auto" à gauche et à droite : le navigateur repartit l'espace horizontal restant à egalite entre les deux marges, ce qui centre le bloc (fonctionne parce que la largeur est definie)*/
+  padding: 0; /*Aucun espace interieur*/
+  box-sizing: border-box; /*Change la façon de calculer la taille : par defaut (content-box) width ne compte que le contenu, le padding et la bordure s'ajoutent en plus. Avec border-box, width inclut le contenu, le padding et la bordure, ce qui evite les depassements*/
+}
+
+/* Apparence des panneaux */
+.panneau {
+  min-width: 0; /*Un item de grille a par defaut un min-width implicite egal à la taille de son contenu. Le mettre à 0 permet à la cellule de rétrécir en dessous, ce qui empeche un contenu large de faire deborder la colonne*/
+  min-height: 280px; /*Le panneau grandit avec son contenu mais ne peut jamais etre plus petit que 280px de haut*/
+  padding: 20px; /*Espace interieur entre la bordure et le contenu*/
+  background-color: #172235; /*Couleur de fond du panneau*/
+  border: 2px solid #334155; /*Bordure pleine de 2px*/
+  border-radius: 16px; /*Arrondit les angles de la boite*/
+  color: #e2e8f0; /*Couleur du texte du panneau, heritee par ses enfants qui n'ont pas de couleur propre*/
+  box-sizing: border-box; /*La taille calculee par la grille inclut le padding et la bordure*/
+}
+
+/* Titres des panneaux */
+.panneau h2 {
+  text-align: center; /*Aligne horizontalement le contenu en ligne (le texte) à l'interieur de la boite du h2, la boite elle-meme ne bouge pas, c'est le texte qui est centre dedans*/
+  color: #38bdf8; /*Le selecteur descendant ".panneau h2" cible uniquement les h2 situes à l'interieur d'un .panneau, les autres h2 de la page ne sont pas touches*/
+  margin-top: 0; /*Annule la marge haute par defaut du h2, sinon elle s'ajouterait au padding du panneau*/
+  margin-bottom: 25px; /*Espace entre le titre et le contenu qui suit*/
+}
+
+#calc {
+  background-color: #1e293b; /*Fond de la calculatrice, un peu plus clair que celui du panneau pour la faire ressortir*/
+  width: 100%; /*Prend toute la largeur disponible du parent...*/
+  max-width: 340px; /*...mais jamais plus de 340px, c'est cette valeur qui gagne quand le parent est plus large*/
+  margin: 0 auto; /*0 en haut/bas, auto à gauche/droite : centre la calculatrice horizontalement dans le panneau*/
+  padding: 15px; /*Espace interieur*/
+  border: 1px solid #334155; /*Bordure fine*/
+  border-radius: 22px; /*Arrondi des angles*/
+  overflow: hidden; /*Definit ce qui se passe quand un enfant depasse de la boite : "hidden" decoupe tout ce qui sort, donc les angles arrondis rognent aussi le contenu*/
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3); /*Ombre decalee de 15px vers le bas, tres floue (40px), noire à 30% d'opacite, qui donne l'impression que la calculatrice est soulevee*/
+  box-sizing: border-box; /*Le padding et la bordure sont inclus dans les 340px max*/
+}
+
+/* Écran de la calculatrice */
+#display {
+  display: block; /*Un input est "inline-block" par defaut, ce qui peut laisser un petit espace sous lui. En block il occupe sa propre ligne entiere*/
+  width: 100%; /*Occupe toute la largeur de #calc (moins son padding)*/
+  height: 75px; /*Hauteur fixe de l'ecran*/
+  padding: 12px; /*Espace entre le bord de l'ecran et le texte saisi*/
+  box-sizing: border-box; /*Les 100% et les 75px incluent le padding : sans ça, l'input depasserait de son parent de 24px*/
+  font-size: 2rem; /*rem = multiple de la taille de police de l'element racine (html), 16px par defaut, donc 2rem = 32px. Contrairement à px, ça s'adapte si l'utilisateur change la taille de police de son navigateur*/
+  font-weight: 500; /*Graisse intermediaire entre normal (400) et gras (700)*/
+  text-align: right; /*Le texte de l'input est colle à droite, comme sur une vraie calculatrice*/
+  border: none; /*Supprime la bordure par defaut que le navigateur ajoute aux champs de saisie*/
+  outline: none; /*L'outline est un contour dessine à l'exterieur de la bordure quand le champ est selectionne (focus), on le supprime. Attention : ça retire aussi l'indication visuelle de focus pour le clavier*/
+  border-radius: 12px; /*Arrondi des angles*/
+  background-color: #0f172a; /*Fond tres sombre, plus fonce que le reste pour imiter un ecran*/
+  color: #f1f5f9; /*Chiffres presque blancs*/
+  margin-bottom: 15px; /*Espace entre l'ecran et la grille de boutons*/
+}
+
+/*Grille des boutons*/
+#characteres {
+  display: grid; /*Le conteneur des boutons devient une grille*/
+  grid-template-columns: repeat(4, 1fr); /*4 colonnes de largeur egale (1fr chacune), les boutons enfants sont places automatiquement de gauche à droite puis passent à la ligne suivante tous les 4 elements*/
+  gap: 9px; /*Espace de 9px entre les boutons*/
+}
+
+/* Boutons classiques */
+#characteres button {
+  width: 100%; /*Chaque bouton remplit la largeur de sa cellule de grille*/
+  aspect-ratio: 1 / 1; /*Force le rapport largeur/hauteur à 1:1, le navigateur calcule la hauteur à partir de la largeur, donc les boutons sont toujours carres*/
+  height: auto; /*La hauteur n'est plus imposee, elle est deduite de aspect-ratio*/
+  border: none; /*Supprime la bordure par defaut des boutons*/
+  border-radius: 13px; /*Arrondi des angles*/
+  background-color: #334155; /*Remplace le fond gris par defaut des boutons du navigateur*/
+  color: #f1f5f9; /*Couleur du texte du bouton, un bouton n'herite pas toujours la couleur du body*/
+  font-size: 1.3rem; /*1.3 fois 16px soit environ 20.8px*/
+  font-weight: 500; /*Graisse moyenne*/
+  cursor: pointer; /*Change l'apparence du curseur de la souris quand il est au dessus de l'element, ici une main, pour signaler que c'est cliquable*/
+  transition:
+    background-color 0.2s,
+    transform 0.15s; /*On peut animer plusieurs proprietes à la fois en les separant par une virgule, chacune avec sa propre duree : la couleur de fond en 0.2s et la transformation en 0.15s*/
+}
+
+/* Survol des boutons classiques */
+#characteres button:hover {
+  background-color: #475569; /*Quand le pointeur est dessus, le fond prend cette valeur plus claire, la transition definie plus haut anime le passage*/
+}
+
+/* Effet lorsqu'on clique */
+#characteres button:active {
+  transform: scale(0.94); /*:active s'applique pendant que le bouton est enfonce (clic maintenu). transform deforme le rendu sans changer la mise en page : scale(0.94) reduit l'element à 94% de sa taille autour de son centre, les voisins ne bougent pas*/
+}
+
+/* Opérateurs : +, -, *, / et C */
+#characteres .operator-btn {
+  background-color: #0e7490; /*Cible les boutons ayant la classe operator-btn à l'interieur de #characteres. Le selecteur contient un id, il est plus specifique que "#characteres button" donc cette couleur gagne*/
+  color: white; /*Texte blanc sur fond bleu-vert*/
+}
+
+#characteres .operator-btn:hover {
+  background-color: #0891b2; /*Survol des operateurs, une teinte plus claire*/
+}
+
+/* Bouton égal */
+#characteres button:nth-child(20) {
+  background-color: #38bdf8; /*:nth-child(20) selectionne l'element qui est le 20e enfant de son parent, ici le 20e bouton de la grille (la 5e ligne de 4 colonnes). Si tu ajoutes ou retires un bouton avant lui, il faudra changer ce nombre*/
+  color: #0f172a; /*Texte fonce pour contraster avec le fond clair*/
+  font-weight: bold; /*Equivalent de 700*/
+}
+
+#characteres button:nth-child(20):hover {
+  background-color: #7dd3fc; /*Fond plus clair au survol du bouton egal*/
+}
+
+form {
+  background-color: #1e293b; /*Le selecteur "form" cible par le nom de balise toutes les balises form de la page, c'est le selecteur le moins specifique (donc facilement ecrase par un id ou une classe)*/
+  text-align: center; /*Centre le texte et les elements en ligne (inputs, labels, boutons) du formulaire*/
+  padding: 20px; /*Espace interieur*/
+  border-radius: 14px; /*Arrondi des angles*/
+  border: 1px solid #334155; /*Bordure fine*/
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /*Ombre legere : decalee de 8px vers le bas, floue sur 20px, noire à 15% d'opacite*/
+  box-sizing: border-box; /*Padding et bordure inclus dans la largeur*/
+}
+
+/* Titre du convertisseur */
+form h1 {
+  color: #38bdf8; /*Selecteur descendant : cible les h1 situes dans un form*/
+  font-size: 21px; /*Taille qui remplace la taille par defaut d'un h1 (2em soit environ 32px)*/
+  margin-top: 0; /*Annule la marge haute par defaut*/
+  margin-bottom: 22px; /*Espace sous le titre*/
+}
+
+/* Champ de saisie */
+#textbox {
+  width: 75%; /*Pourcentage de la largeur du parent (le form)*/
+  box-sizing: border-box; /*Le padding et la bordure sont inclus dans ces 75%*/
+  text-align: center; /*Le texte saisi est centre dans le champ*/
+  font-size: 22px; /*Taille du texte saisi*/
+  padding: 12px; /*Espace entre le texte et le bord du champ*/
+  border: 1px solid #475569; /*Bordure fine, plus claire que le fond pour que le champ se distingue*/
+  border-radius: 10px; /*Arrondi des angles*/
+  background-color: #0f172a; /*Fond fonce*/
+  color: #f1f5f9; /*Texte clair*/
+  margin-bottom: 20px; /*Espace sous le champ*/
+  outline: none; /*Retire le contour qui apparait au focus*/
+  transition: border-color 0.2s; /*Prepare une animation de la couleur de bordure en 0.2s, elle ne se declenchera que si une autre regle (comme :focus) change border-color*/
+}
+
+form label {
+  display: inline-block; /*Reste sur la meme ligne que les autres elements mais accepte les marges verticales et les dimensions comme un bloc (un inline simple ignore les marges haut et bas)*/
+  color: #e2e8f0; /*Couleur du texte du label*/
+  font-size: 14px; /*Taille du texte*/
+  font-weight: 500; /*Graisse moyenne*/
+  margin: 8px 0; /*8px en haut et en bas, 0 sur les cotes*/
+  cursor: pointer; /*Curseur en forme de main : cliquer sur un label active le bouton radio associe, c'est pourquoi ce curseur est pertinent*/
+}
+
+/* Couleur des boutons radio */
+form input[type="radio"] {
+  accent-color: #38bdf8; /*Le selecteur d'attribut [type="radio"] ne cible que les input dont l'attribut type vaut "radio". accent-color change la couleur d'accentuation des controles natifs du navigateur (case cochee, point du radio) sans avoir à les redessiner*/
+  cursor: pointer; /*Curseur main*/
+}
+
+/* Bouton de conversion */
+form button {
+  margin-top: 18px; /*Espace au dessus du bouton*/
+  background-color: #38bdf8; /*Fond bleu clair*/
+  color: #0f172a; /*Texte fonce*/
+  font-size: 15px; /*Taille du texte*/
+  font-weight: bold; /*Texte en gras*/
+  border: none; /*Supprime la bordure par defaut*/
+  padding: 12px 22px; /*12px vertical, 22px horizontal : la taille du bouton depend de son texte plus ce padding*/
+  border-radius: 10px; /*Arrondi des angles*/
+  cursor: pointer; /*Curseur main*/
+  transition:
+    background-color 0.2s,
+    transform 0.2s,
+    box-shadow 0.2s; /*Trois proprietes animees chacune en 0.2s : sans cette liste, le survol ci-dessous serait instantane*/
+}
+
+/* Effet au survol */
+form button:hover {
+  background-color: #7dd3fc; /*Fond plus clair*/
+  transform: translateY(-2px); /*translateY decale visuellement l'element sur l'axe vertical, une valeur negative va vers le haut. Le decalage n'affecte pas la mise en page : les elements voisins ne bougent pas*/
+  box-shadow: 0 5px 15px rgba(56, 189, 248, 0.15); /*Ajoute une ombre bleue tres legere (meme couleur que le fond du bouton, à 15% d'opacite), qui apparait grace à la transition de box-shadow*/
+}
+
+/* Résultat de la conversion */
+#resultat {
+  color: #38bdf8; /*Texte bleu clair*/
+  font-size: 25px; /*Taille du texte*/
+  font-weight: bold; /*Texte en gras*/
+  overflow-wrap: anywhere; /*Si un mot (un long nombre sans espace) est plus large que son conteneur, le navigateur est autorise à le couper n'importe où pour qu'il ne deborde pas*/
+  margin-top: 22px; /*Espace au dessus du resultat*/
+  margin-bottom: 0; /*Pas d'espace en dessous*/
+}
+
+#calcul-budget {
+  display: flex; /*Le conteneur devient flex, ses enfants (labels, inputs, bloc resultat) sont des flex items*/
+  flex-direction: column; /*Change l'axe principal : au lieu d'aller de gauche à droite (row), il va de haut en bas, donc les enfants s'empilent verticalement*/
+  gap: 12px; /*Espace de 12px entre chaque enfant*/
+  background-color: #1e293b; /*Couleur de fond*/
+  padding: 20px; /*Espace interieur*/
+  border: 1px solid #334155; /*Bordure fine*/
+  border-radius: 14px; /*Arrondi des angles*/
+  box-sizing: border-box; /*Padding et bordure inclus dans la largeur*/
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /*Ombre legere*/
+}
+
+#calcul-budget label {
+  color: #cbd5e1; /*Gris clair*/
+  font-size: 14px; /*Taille du texte*/
+  font-weight: bold; /*Texte en gras*/
+  text-align: left; /*Aligne le texte à gauche, utile car le form parent centre son texte et ce text-align est herite*/
+  margin-top: 5px; /*Petit espace supplementaire au dessus de chaque label*/
+}
+
+#calcul-budget input[type="number"] {
+  width: 100%; /*Le champ remplit la largeur du conteneur flex*/
+  padding: 12px; /*Espace interieur*/
+  box-sizing: border-box; /*Evite que width: 100% + padding depasse du conteneur*/
+  background-color: #0f172a; /*Fond fonce*/
+  color: #f1f5f9; /*Texte clair*/
+  border: 1px solid #334155; /*Bordure fine*/
+  border-radius: 9px; /*Arrondi des angles*/
+  font-size: 15px; /*Taille du texte saisi*/
+  outline: none; /*Retire le contour au focus*/
+}
+
+/* Bloc du résultat */
+#calcul-budget .resultat_budget {
+  margin-top: 10px; /*Espace au dessus du bloc, en plus du gap de 12px*/
+  padding: 15px; /*Espace interieur*/
+  background-color: #0f172a; /*Fond fonce*/
+  border: 1px solid #334155; /*Bordure fine*/
+  border-radius: 10px; /*Arrondi des angles*/
+  text-align: center; /*Centre le texte du resultat*/
+}
+
+#calcul-budget .resultat-budget h2 {
+  color: #cbd5e1; /*Gris clair*/
+  font-size: 15px; /*Taille du texte*/
+  margin: 0; /*Supprime les marges par defaut du h2*/
+  line-height: 1.7; /*Hauteur de ligne : 1.7 fois la taille du texte (sans unite, le coefficient est recalcule pour chaque element selon sa propre taille)*/
+}
+
+/* Montant restant */
+#budget_restant {
+  display: block; /*Si c'est un span (inline par defaut), il ne peut pas prendre de marge verticale, en block il passe sur sa propre ligne et accepte margin-top*/
+  margin-top: 8px; /*Espace au dessus du montant*/
+  color: #38bdf8; /*Bleu clair*/
+  font-size: 28px; /*Grande taille pour mettre le montant en avant*/
+  font-weight: bold; /*Texte en gras*/
+  overflow-wrap: anywhere; /*Coupe les tres longs nombres plutot que de deborder*/
+}
+
+.gestionnaire-taches {
+  display: flex; /*Conteneur flex*/
+  flex-direction: column; /*Les enfants s'empilent du haut vers le bas*/
+  gap: 12px; /*Espace entre les enfants*/
+  background-color: #1e293b; /*Couleur de fond*/
+  padding: 20px; /*Espace interieur*/
+  border: 1px solid #334155; /*Bordure fine*/
+  border-radius: 14px; /*Arrondi des angles*/
+  box-sizing: border-box; /*Padding et bordure inclus dans la largeur*/
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /*Ombre legere*/
+}
+
+.row {
+  display: flex; /*Conteneur flex horizontal (row est la valeur par defaut de flex-direction), le champ et le bouton se placent cote à cote*/
+  align-items: center; /*Centre verticalement le champ et le bouton*/
+  justify-content: space-between; /*Repartit l'espace libre entre les elements, premier à gauche et dernier à droite*/
+}
+input {
+  flex: 1; /*Raccourci de flex-grow: 1, flex-shrink: 1 et flex-basis: 0. Le champ absorbe tout l'espace libre du conteneur flex, ce qui le fait s'etendre jusqu'au bouton. Attention : le selecteur "input" cible TOUS les input de la page, mais les regles avec un id (#display, #textbox...) sont plus specifiques et l'emportent en cas de conflit*/
+  border: none; /*Supprime la bordure*/
+  outline: none; /*Supprime le contour au focus*/
+  background: transparent; /*Raccourci de toutes les proprietes de fond, ici on retire la couleur pour laisser voir le fond du parent*/
+  padding: 10px; /*Espace interieur*/
+  color: white; /*Texte blanc*/
+}
+#ajt-tache-btn {
+  border: none; /*Supprime la bordure par defaut*/
+  outline: none; /*Supprime le contour au focus*/
+  padding: 16px 50px; /*16px vertical, 50px horizontal : le bouton est large grace à ce padding*/
+  background: #334155; /*Fond du bouton*/
+  color: #fff; /*#fff est la notation courte de #ffffff, blanc*/
+  font-size: 16px; /*Taille du texte*/
+  cursor: pointer; /*Curseur main*/
+  border-radius: 40px; /*Un rayon superieur à la moitie de la hauteur : le navigateur le limite automatiquement, ce qui donne des extremites completement rondes (forme de pilule)*/
+}
+#conteneur-liste li {
+  list-style: none; /*Supprime la puce*/
+  font-size: 17px; /*Taille du texte de la tache*/
+  padding: 12px 8px 12px 50px; /*Quatre valeurs dans le sens des aiguilles d'une montre : haut 12px, droite 8px, bas 12px, gauche 50px. Les 50px à gauche laissent la place pour l'icone de case*/
+  user-select: none; /*Empeche la selection du texte à la souris, utile ici car un clic sert à cocher la tache*/
+  cursor: pointer; /*Curseur main*/
+  position: relative; /*Le li devient un point de repere (ancre) pour les enfants en position: absolute : leurs coordonnees seront calculees par rapport à ce li et non par rapport à la page*/
+}
+
+#conteneur-liste li::before {
+  content: ""; /*::before cree un pseudo-element, un element fantome inséré avant le contenu du li. Il n'existe que si content est defini, ici une chaine vide car on veut juste une boite pour afficher l'image*/
+  position: absolute; /*Sort le pseudo-element du flux normal : il n'occupe plus de place et se positionne avec top/left par rapport au li (qui est en position: relative)*/
+  height: 28px; /*Hauteur de la boite*/
+  width: 28px; /*Largeur de la boite, carree*/
+  border-radius: 50%; /*50% d'une boite carree donne un cercle parfait*/
+  background-image: url(images/unchecked.png); /*Affiche l'image de la case vide comme fond de la boite, url() indique le chemin relatif au fichier CSS*/
+  background-size: cover; /*Agrandit l'image pour couvrir toute la boite*/
+  background-position: center; /*Centre l'image dans la boite*/
+  background-repeat: no-repeat; /*Une seule copie de l'image*/
+  top: 12px; /*Distance entre le haut du li et le haut du pseudo-element*/
+  left: 8px; /*Distance entre le bord gauche du li et le pseudo-element, il se place donc dans les 50px de padding laisses libres*/
+}
+
+/* État coché */
+#conteneur-liste li.coche {
+  color: #94a3b8; /*Le selecteur "li.coche" (sans espace) cible un li qui possede aussi la classe coche, probablement ajoutee par le JavaScript au clic. Le texte devient gris*/
+  text-decoration: line-through; /*Trace une ligne au milieu du texte*/
+}
+
+#conteneur-liste li.coche::before {
+  background-image: url(images/coche.png); /*Quand le li a la classe coche, cette regle plus specifique remplace l'image de fond du pseudo-element par l'icone de case cochee*/
+}
+#conteneur-liste li span {
+  position: absolute; /*Le span (probablement le bouton de suppression x) sort du flux et se positionne par rapport au li*/
+  right: 0; /*Colle le span au bord droit du li*/
+  top: 5px; /*Le decale de 5px depuis le haut du li*/
+  width: 40px; /*Largeur de la zone cliquable*/
+  height: 40px; /*Hauteur de la zone cliquable*/
+  font-size: 22px; /*Taille du symbole*/
+  color: #94a3b8; /*Gris*/
+  line-height: 40px; /*Une hauteur de ligne egale à la hauteur de la boite centre verticalement le texte sur une seule ligne*/
+  text-align: center; /*Centre le texte horizontalement*/
+  border-radius: 50%; /*Boite circulaire, visible au survol*/
+}
+#conteneur-liste li span:hover {
+  background-color: #edeef0; /*Au survol, le cercle prend un fond gris tres clair*/
+}

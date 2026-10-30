@@ -1,0 +1,165 @@
+body {
+  margin: 0; /*supprime la marge exterieure par defaut du body*/
+  background-color: #1e293b; /*couleur de fond de la page*/
+  font-family: Verdana, Geneva, Tahoma, sans-serif; /*police utilisee pour le texte de toute la page*/
+  color: #e2e8f0; /*couleur de texte claire par defaut*/
+}
+
+/* Barre de navigation */
+.navbar {
+  background-color: #172235; /*applique une couleur de fond a la barre de navigation*/
+  padding: 12px 25px; /*ajoute une marge interieure de 12px en haut et en bas, et de 25px sur les cotes*/
+  margin: 15px 20px; /*ajoute une marge exterieure de 15px en haut et en bas, et de 20px sur les cotes*/
+  border: 1px solid #334155; /*ajoute une bordure pleine de 1px de couleur #334155*/
+  border-radius: 15px; /*arrondit les coins de la barre avec un rayon de 15px*/
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /*ajoute une ombre, decalee de 4px vers le bas avec un flou de 15px et une opacite de 0.2*/
+}
+
+.navbar ul {
+  display: flex; /*place les elements de la liste cote a cote dans un conteneur flex*/
+  list-style: none; /*enleve les puces de la liste*/
+  justify-content: space-between; /*repartit les elements sur toute la largeur avec de l'espace entre eux*/
+  align-items: center; /*centre les elements verticalement*/
+  margin: 0; /*supprime la marge exterieure par defaut de la liste*/
+  padding: 0; /*supprime la marge interieure par defaut de la liste*/
+}
+
+.navbar li {
+  display: flex; /*aligne les elements contenus dans chaque li cote a cote*/
+  align-items: center; /*centre le contenu du li verticalement*/
+  gap: 12px; /*ajoute un espace de 12px entre les elements du li*/
+}
+
+.navbar ul a {
+  text-decoration: none; /*enleve le soulignement par defaut des liens*/
+  font-weight: 400; /*donne une epaisseur normale au texte*/
+  font-size: 18px; /*definit la taille du texte en pixels*/
+  color: #e2e8f0; /*affiche le texte du lien en gris clair*/
+  transition: color 0.2s ease; /*rend le changement de couleur progressif sur 0.2 seconde*/
+}
+
+/* Logo */
+.navbar img {
+  width: 50px; /*definit la largeur du logo*/
+  height: 50px; /*definit la hauteur du logo*/
+  object-fit: contain; /*affiche l'image entiere sans la deformer dans la zone de 50x50px*/
+}
+
+/* Couleur au survol */
+.navbar ul a:hover {
+  color: #38bdf8; /*quand la souris passe sur un lien, son texte devient bleu clair*/
+}
+
+#titre {
+  margin: 0; /*supprime la marge par defaut du titre*/
+  color: #38bdf8; /*affiche le titre en bleu clair*/
+  font-size: 26px; /*definit la taille du titre en pixels*/
+}
+
+h1 {
+  color: white; /*affiche le titre principal en blanc*/
+  text-align: center; /*centre le titre horizontalement*/
+  margin: 50px 0; /*ajoute 50px de marge en haut et en bas, et aucune marge sur les cotes*/
+}
+
+/* Section à deux colonnes */
+.premiere-section {
+  display: flex; /*place les deux colonnes cote a cote*/
+  margin: 20px; /*ajoute une marge exterieure de 20px autour de la section*/
+  overflow: hidden; /*cache ce qui depasse des bords arrondis de la section*/
+  border-radius: 15px; /*arrondit les coins de la section*/
+  border: 1px solid #334155; /*ajoute une bordure pleine de 1px de couleur #334155*/
+  min-height: 350px; /*definit une hauteur minimale de 350px*/
+}
+
+.Presentation {
+  flex: 6; /*donne a cette colonne 6 parts de l'espace disponible*/
+  min-width: 0; /*autorise la colonne a retrecir sans depasser de son conteneur*/
+  padding: 30px; /*ajoute une marge interieure de 30px sur les quatre cotes*/
+  background-color: #172235; /*applique un fond fonce a la colonne de presentation*/
+  box-sizing: border-box; /*inclut la marge interieure dans la largeur totale de la colonne*/
+}
+
+.Presentation h2 {
+  color: #38bdf8; /*affiche le titre de la presentation en bleu clair*/
+  margin-top: 0; /*supprime la marge par defaut au-dessus du titre*/
+  font-size: 28px; /*definit la taille du titre en pixels*/
+}
+
+.Presentation p {
+  font-size: 16px; /*definit la taille du texte en pixels*/
+  line-height: 1.8; /*aere le texte en donnant une hauteur de ligne 1.8 fois superieure a sa taille*/
+}
+
+/* Colonne de l'image : 40 % */
+.illustration {
+  flex: 4; /*donne a la colonne de l'image 4 parts sur les 10 parts disponibles, soit 40 %*/
+  min-width: 0; /*autorise la colonne a retrecir sans depasser de son conteneur*/
+  overflow: hidden; /*cache les parties de l'image qui depassent de la colonne*/
+}
+
+.illustration img {
+  object-fit: cover; /*remplit la colonne avec l'image, quitte a en couper une partie*/
+  width: 100%; /*etire l'image sur toute la largeur de la colonne*/
+  height: 100%; /*etire l'image sur toute la hauteur de la colonne*/
+  border-radius: 0 16px 16px 0; /*arrondit les coins en haut a droite et en bas a droite*/
+}
+
+a {
+  color: rgb(85, 198, 212); /*affiche les liens en bleu turquoise*/
+  text-decoration: none; /*enleve le soulignement par defaut des liens*/
+}
+
+a:hover {
+  color: #496696; /*change la couleur du lien quand la souris passe dessus*/
+}
+
+ol {
+  list-style-type: upper-roman; /*numerote les elements de la liste avec des chiffres romains majuscules*/
+}
+
+.description {
+  margin: 20px; /*ajoute une marge exterieure de 20px autour du bloc*/
+  overflow: hidden; /*cache les elements qui depassent du bloc*/
+  border-radius: 15px; /*arrondit les coins du bloc*/
+  border: 1px solid #334155; /*ajoute une bordure pleine de 1px de couleur #334155*/
+  min-height: 350px; /*definit une hauteur minimale de 350px*/
+  padding: 20px; /*ajoute une marge interieure de 20px sur les quatre cotes*/
+}
+.description h2 {
+  color: #38bdf8; /*affiche le titre de la description en bleu clair*/
+  margin-top: 0; /*supprime la marge par defaut au-dessus du titre*/
+  font-size: 28px; /*definit la taille du titre en pixels*/
+}
+.description img {
+  display: block; /*affiche l'image comme un bloc pour pouvoir la centrer avec les marges*/
+  width: 120px; /*definit la largeur de l'image*/
+  margin: 20px auto 0; /*ajoute 20px en haut, centre l'image horizontalement et ne met pas de marge en bas*/
+}
+.tableau-outils {
+  margin: 20px; /*ajoute une marge exterieure de 20px autour du bloc*/
+  border-radius: 15px; /*arrondit les coins du bloc*/
+  border: 1px solid #334155; /*ajoute une bordure pleine de 1px de couleur #334155*/
+  padding: 20px; /*ajoute une marge interieure de 20px sur les quatre cotes*/
+}
+.tableau-outils h2 {
+  color: #38bdf8; /*affiche le titre du tableau en bleu clair*/
+  margin-top: 0; /*supprime la marge par defaut au-dessus du titre*/
+  font-size: 28px; /*definit la taille du titre en pixels*/
+}
+.tableau-outils table {
+  width: 100%; /*etire le tableau sur toute la largeur disponible*/
+  border-radius: 15px; /*arrondit les coins du tableau*/
+  border-collapse: collapse; /*fusionne les bordures des cellules pour eviter les doubles bordures*/
+}
+.tableau-outils th,
+.tableau-outils td {
+  padding: 12px 15px; /*ajoute une marge interieure de 12px en haut et en bas, et de 15px sur les cotes*/
+  text-align: left; /*aligne le texte a gauche dans les cellules*/
+  border: 1px solid #334155; /*ajoute une bordure pleine de 1px autour de chaque cellule*/
+}
+
+.tableau-outils th {
+  background-color: #172235; /*applique un fond fonce aux cellules d'en-tete*/
+  color: #38bdf8; /*affiche le texte des en-tetes en bleu clair*/
+}

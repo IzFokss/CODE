@@ -6,7 +6,7 @@ body {
 }
 
 /* Barre de navigation */
-.barre-navigation {
+.navbar {
   background-color: #172235; /*applique une couleur de fond a la barre de navigation*/
   padding: 12px 25px; /*ajoute une marge interieure de 12px en haut et en bas, et de 25px sur les cotes*/
   margin: 15px 20px; /*ajoute une marge exterieure de 15px en haut et en bas, et de 20px sur les cotes*/
@@ -15,7 +15,7 @@ body {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /*ajoute une ombre, decalee de 4px vers le bas avec un flou de 15px et une opacite de 0.2*/
 }
 
-.barre-navigation ul {
+.navbar ul {
   display: flex; /*place les elements de la liste cote a cote dans un conteneur flex*/
   list-style: none; /*enleve les puces de la liste*/
   justify-content: space-between; /*repartit les elements sur toute la largeur avec de l'espace entre eux*/
@@ -24,13 +24,13 @@ body {
   padding: 0; /*supprime la marge interieure par defaut de la liste*/
 }
 
-.barre-navigation li {
+.navbar li {
   display: flex; /*aligne les elements contenus dans chaque li cote a cote*/
   align-items: center; /*centre le contenu du li verticalement*/
   gap: 12px; /*ajoute un espace de 12px entre les elements du li*/
 }
 
-.barre-navigation ul a {
+.navbar ul a {
   text-decoration: none; /*enleve le soulignement par defaut des liens*/
   font-weight: 400; /*donne une epaisseur normale au texte*/
   font-size: 18px; /*definit la taille du texte en pixels*/
@@ -39,14 +39,14 @@ body {
 }
 
 /* Logo */
-.barre-navigation img {
+.navbar img {
   width: 50px; /*definit la largeur du logo*/
   height: 50px; /*definit la hauteur du logo*/
   object-fit: contain; /*affiche l'image entiere sans la deformer dans la zone de 50x50px*/
 }
 
 /* Couleur au survol */
-.barre-navigation ul a:hover {
+.navbar ul a:hover {
   color: #38bdf8; /*quand la souris passe sur un lien, son texte devient bleu clair*/
 }
 
@@ -72,7 +72,7 @@ h1 {
   min-height: 350px; /*definit une hauteur minimale de 350px*/
 }
 
-.presentation {
+.Presentation {
   flex: 6; /*donne a cette colonne 6 parts de l'espace disponible*/
   min-width: 0; /*autorise la colonne a retrecir sans depasser de son conteneur*/
   padding: 30px; /*ajoute une marge interieure de 30px sur les quatre cotes*/
@@ -80,13 +80,13 @@ h1 {
   box-sizing: border-box; /*inclut la marge interieure dans la largeur totale de la colonne*/
 }
 
-.presentation h2 {
+.Presentation h2 {
   color: #38bdf8; /*affiche le titre de la presentation en bleu clair*/
   margin-top: 0; /*supprime la marge par defaut au-dessus du titre*/
   font-size: 28px; /*definit la taille du titre en pixels*/
 }
 
-.presentation p {
+.Presentation p {
   font-size: 16px; /*definit la taille du texte en pixels*/
   line-height: 1.8; /*aere le texte en donnant une hauteur de ligne 1.8 fois superieure a sa taille*/
 }
